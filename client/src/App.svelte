@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte"
   let trainPredictions;
-  let relevantStations = ["Cleveland Park", "Gallery Pl-Chinatown", "Congress Heights"]
+  let relevantStations = ["Congress Heights", "Gallery Pl-Chinatown", "Cleveland Park"]
 
   onMount(async () => {
     trainPredictions = await getTrainPredictions()

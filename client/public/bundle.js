@@ -634,7 +634,7 @@ var app = (function () {
 
     function instance($$self, $$props, $$invalidate) {
     	let trainPredictions;
-      let relevantStations = ["Cleveland Park", "Gallery Pl-Chinatown", "Congress Heights"];
+      let relevantStations = ["Congress Heights", "Gallery Pl-Chinatown", "Cleveland Park"];
 
       onMount(async () => {
         $$invalidate('trainPredictions', trainPredictions = await getTrainPredictions());

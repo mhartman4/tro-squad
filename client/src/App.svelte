@@ -5,12 +5,18 @@
 
   onMount(async () => {
     trainPredictions = await getTrainPredictions()
+    // TODO: figure out refreshes!
+    // setInterval( () => {
+    //   trainPredictions = getTrainPredictions()
+    // }, 3000)
   })
 
   const getTrainPredictions = async () => {
     const response = await fetch(`./train_predictions`)
     return response.json()
   }
+
+  
   
   
 </script>
@@ -29,7 +35,7 @@
     {/each}
     </table>
   {:else}
-    
+    Loading...
   {/if}
 {/each}
 

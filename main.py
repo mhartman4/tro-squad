@@ -24,8 +24,6 @@ def home(path):
 @app.route("/train_predictions")
 def train_predictions():
     all_predictions = json.loads(requests.get("https://api.wmata.com/StationPrediction.svc/json/GetPrediction/All", headers={"Cache-Control": "no-cache", 'api_key': wmata_api_key}).text)
-    # favorite_stations = ["Cleveland Park", "Gallery Pl-Chinatown", "Congress Heights"]
-    # relevant_predictions = [train for train in all_predictions["Trains"] if train["LocationName"] in favorite_stations]
     return json.dumps(all_predictions["Trains"])
 
 

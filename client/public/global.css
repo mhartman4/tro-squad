@@ -5,7 +5,8 @@ html, body {
 }
 
 body {
-	color: #333;
+	background-color: #21292f;
+	color: white;
 	margin: 0;
 	padding: 8px;
 	box-sizing: border-box;
@@ -59,4 +60,28 @@ button:active {
 
 button:focus {
 	border-color: #666;
+}
+
+
+.FR {
+	background-color:green;
+}
+.CO {
+	background-color: #4ec676;
+}
+.ST {
+	background-color: #8ecc5e;
+
+}
+.KR {
+	background-color: #b6d04f;
+}
+.RO {
+	background-color: #f7d636;
+}
+.RB {
+	background-color: #f7a33d;
+}
+.ML {
+	background-color: #f26e47;
 }

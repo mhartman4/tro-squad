@@ -1,7 +1,17 @@
 <script>
   import { onMount } from "svelte"
-  let trainPredictions;
-  let relevantStations = ["Congress Heights", "Gallery Pl-Chinatown", "Cleveland Park"]
+  let trainPredictions, relevantStations;
+  
+  if (window.location.href.includes("?alex")) {
+    relevantStations = ["NoMa-Gallaudet U", "Metro Center", "Rosslyn"]
+  }
+  else if (window.location.href.includes("?barry")) {
+    relevantStations = ["Friendship Heights", "Farragut North", "Foggy Bottom-GWU", "Dupont Circle", "Waterfront"]
+  }
+  else {
+    relevantStations = ["Congress Heights", "Gallery Pl-Chinatown", "Cleveland Park"]
+  }
+  
 
   onMount(async () => {
     trainPredictions = await getTrainPredictions()

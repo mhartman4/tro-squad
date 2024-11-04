@@ -310,7 +310,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (37:2) {:else}
+    // (47:2) {:else}
     function create_else_block(ctx) {
     	var t;
 
@@ -331,11 +331,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block.name, type: "else", source: "(37:2) {:else}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block.name, type: "else", source: "(47:2) {:else}", ctx });
     	return block;
     }
 
-    // (25:2) {#if trainPredictions}
+    // (35:2) {#if trainPredictions}
     function create_if_block(ctx) {
     	var table, t;
 
@@ -356,7 +356,7 @@ var app = (function () {
     			}
 
     			t = space();
-    			add_location(table, file, 25, 4, 623);
+    			add_location(table, file, 35, 4, 954);
     		},
 
     		m: function mount(target, anchor) {
@@ -401,11 +401,11 @@ var app = (function () {
     			destroy_each(each_blocks, detaching);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block.name, type: "if", source: "(25:2) {#if trainPredictions}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block.name, type: "if", source: "(35:2) {#if trainPredictions}", ctx });
     	return block;
     }
 
-    // (28:6) {#if train.LocationName == station && train.Line != "YL" && train.Destination != "ssenger"}
+    // (38:6) {#if train.LocationName == station && train.Line != "YL" && train.Destination != "ssenger"}
     function create_if_block_1(ctx) {
     	var tr, td0, span, span_class_value, t0, td1, t1_value = ctx.train.Destination + "", t1, t2, t3, td2, t4_value = ctx.train.Min + "", t4;
 
@@ -422,12 +422,12 @@ var app = (function () {
     			td2 = element("td");
     			t4 = text(t4_value);
     			attr_dev(span, "class", span_class_value = "dot " + ctx.train.Line + " svelte-nbgwrd");
-    			add_location(span, file, 29, 14, 808);
-    			add_location(td0, file, 29, 10, 804);
-    			add_location(td1, file, 30, 10, 862);
-    			add_location(td2, file, 31, 10, 925);
+    			add_location(span, file, 39, 14, 1139);
+    			add_location(td0, file, 39, 10, 1135);
+    			add_location(td1, file, 40, 10, 1193);
+    			add_location(td2, file, 41, 10, 1256);
     			attr_dev(tr, "class", "train svelte-nbgwrd");
-    			add_location(tr, file, 28, 8, 775);
+    			add_location(tr, file, 38, 8, 1106);
     		},
 
     		m: function mount(target, anchor) {
@@ -463,11 +463,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1.name, type: "if", source: "(28:6) {#if train.LocationName == station && train.Line != \"YL\" && train.Destination != \"ssenger\"}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1.name, type: "if", source: "(38:6) {#if train.LocationName == station && train.Line != \"YL\" && train.Destination != \"ssenger\"}", ctx });
     	return block;
     }
 
-    // (27:4) {#each trainPredictions as train}
+    // (37:4) {#each trainPredictions as train}
     function create_each_block_1(ctx) {
     	var if_block_anchor;
 
@@ -507,11 +507,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1.name, type: "each", source: "(27:4) {#each trainPredictions as train}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1.name, type: "each", source: "(37:4) {#each trainPredictions as train}", ctx });
     	return block;
     }
 
-    // (23:0) {#each relevantStations as station}
+    // (33:0) {#each relevantStations as station}
     function create_each_block(ctx) {
     	var h1, t0, t1_value = ctx.station + "", t1, t2, if_block_anchor;
 
@@ -532,7 +532,7 @@ var app = (function () {
     			if_block.c();
     			if_block_anchor = empty();
     			attr_dev(h1, "class", "station svelte-nbgwrd");
-    			add_location(h1, file, 23, 2, 556);
+    			add_location(h1, file, 33, 2, 887);
     		},
 
     		m: function mount(target, anchor) {
@@ -545,6 +545,10 @@ var app = (function () {
     		},
 
     		p: function update(changed, ctx) {
+    			if ((changed.relevantStations) && t1_value !== (t1_value = ctx.station + "")) {
+    				set_data_dev(t1, t1_value);
+    			}
+
     			if (current_block_type === (current_block_type = select_block_type(changed, ctx)) && if_block) {
     				if_block.p(changed, ctx);
     			} else {
@@ -570,7 +574,7 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block.name, type: "each", source: "(23:0) {#each relevantStations as station}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block.name, type: "each", source: "(33:0) {#each relevantStations as station}", ctx });
     	return block;
     }
 
@@ -646,8 +650,18 @@ var app = (function () {
     }
 
     function instance($$self, $$props, $$invalidate) {
-    	let trainPredictions;
-      let relevantStations = ["Congress Heights", "Gallery Pl-Chinatown", "Cleveland Park"];
+    	let trainPredictions, relevantStations;
+      
+      if (window.location.href.includes("?alex")) {
+        $$invalidate('relevantStations', relevantStations = ["NoMa-Gallaudet U", "Metro Center", "Rosslyn"]);
+      }
+      else if (window.location.href.includes("?barry")) {
+        $$invalidate('relevantStations', relevantStations = ["Friendship Heights", "Farragut North", "Foggy Bottom-GWU", "Dupont Circle", "Waterfront"]);
+      }
+      else {
+        $$invalidate('relevantStations', relevantStations = ["Congress Heights", "Gallery Pl-Chinatown", "Cleveland Park"]);
+      }
+      
 
       onMount(async () => {
         $$invalidate('trainPredictions', trainPredictions = await getTrainPredictions());

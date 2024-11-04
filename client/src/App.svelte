@@ -1,12 +1,15 @@
 <script>
   import { onMount } from "svelte"
   let trainPredictions, relevantStations;
+  let person = "";
   
   if (window.location.href.includes("?alex")) {
     relevantStations = ["NoMa-Gallaudet U", "Metro Center", "Rosslyn"]
+    person = "Alex"
   }
   else if (window.location.href.includes("?barry")) {
     relevantStations = ["Friendship Heights", "Farragut North", "Foggy Bottom-GWU", "Dupont Circle", "Waterfront"]
+    person = "Barry"
   }
   else {
     relevantStations = ["Congress Heights", "Gallery Pl-Chinatown", "Cleveland Park"]
@@ -30,6 +33,7 @@
   
   
 </script>
+<h1 class="person">{person}</h1>
 {#each relevantStations as station}
   <h1 class="station">🚉 {station}</h1>
   {#if trainPredictions}
@@ -87,5 +91,9 @@
     text-transform: uppercase;
     color: #FFF068;
     font-size: 22px;
+  }
+  .person {
+    font-family: "VT323";
+    text-transform: uppercase;
   }
 </style>

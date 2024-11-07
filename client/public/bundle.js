@@ -310,7 +310,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (51:2) {:else}
+    // (55:2) {:else}
     function create_else_block(ctx) {
     	var t;
 
@@ -331,11 +331,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block.name, type: "else", source: "(51:2) {:else}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block.name, type: "else", source: "(55:2) {:else}", ctx });
     	return block;
     }
 
-    // (39:2) {#if trainPredictions}
+    // (43:2) {#if trainPredictions}
     function create_if_block(ctx) {
     	var table, t;
 
@@ -356,7 +356,7 @@ var app = (function () {
     			}
 
     			t = space();
-    			add_location(table, file, 39, 4, 1047);
+    			add_location(table, file, 43, 4, 1317);
     		},
 
     		m: function mount(target, anchor) {
@@ -401,11 +401,11 @@ var app = (function () {
     			destroy_each(each_blocks, detaching);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block.name, type: "if", source: "(39:2) {#if trainPredictions}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block.name, type: "if", source: "(43:2) {#if trainPredictions}", ctx });
     	return block;
     }
 
-    // (42:6) {#if train.LocationName == station && train.Line != "YL" && train.Destination != "ssenger"}
+    // (46:6) {#if train.LocationName == station && train.Line != "YL" && train.Destination != "ssenger"}
     function create_if_block_1(ctx) {
     	var tr, td0, span, span_class_value, t0, td1, t1_value = ctx.train.Destination + "", t1, t2, t3, td2, t4_value = ctx.train.Min + "", t4;
 
@@ -422,12 +422,12 @@ var app = (function () {
     			td2 = element("td");
     			t4 = text(t4_value);
     			attr_dev(span, "class", span_class_value = "dot " + ctx.train.Line + " svelte-e0kosw");
-    			add_location(span, file, 43, 14, 1232);
-    			add_location(td0, file, 43, 10, 1228);
-    			add_location(td1, file, 44, 10, 1286);
-    			add_location(td2, file, 45, 10, 1349);
+    			add_location(span, file, 47, 14, 1502);
+    			add_location(td0, file, 47, 10, 1498);
+    			add_location(td1, file, 48, 10, 1556);
+    			add_location(td2, file, 49, 10, 1619);
     			attr_dev(tr, "class", "train svelte-e0kosw");
-    			add_location(tr, file, 42, 8, 1199);
+    			add_location(tr, file, 46, 8, 1469);
     		},
 
     		m: function mount(target, anchor) {
@@ -463,11 +463,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1.name, type: "if", source: "(42:6) {#if train.LocationName == station && train.Line != \"YL\" && train.Destination != \"ssenger\"}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1.name, type: "if", source: "(46:6) {#if train.LocationName == station && train.Line != \"YL\" && train.Destination != \"ssenger\"}", ctx });
     	return block;
     }
 
-    // (41:4) {#each trainPredictions as train}
+    // (45:4) {#each trainPredictions as train}
     function create_each_block_1(ctx) {
     	var if_block_anchor;
 
@@ -507,13 +507,13 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1.name, type: "each", source: "(41:4) {#each trainPredictions as train}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1.name, type: "each", source: "(45:4) {#each trainPredictions as train}", ctx });
     	return block;
     }
 
-    // (37:0) {#each relevantStations as station}
+    // (41:0) {#each relevantStations as station}
     function create_each_block(ctx) {
-    	var h1, t0, t1_value = ctx.station + "", t1, t2, if_block_anchor;
+    	var h1, t0, t1_value = ctx.station.length > 20 ? ctx.station.substring(0,20) : ctx.station + "", t1, t2, if_block_anchor;
 
     	function select_block_type(changed, ctx) {
     		if (ctx.trainPredictions) return create_if_block;
@@ -532,7 +532,7 @@ var app = (function () {
     			if_block.c();
     			if_block_anchor = empty();
     			attr_dev(h1, "class", "station svelte-e0kosw");
-    			add_location(h1, file, 37, 2, 980);
+    			add_location(h1, file, 41, 2, 1201);
     		},
 
     		m: function mount(target, anchor) {
@@ -545,7 +545,7 @@ var app = (function () {
     		},
 
     		p: function update(changed, ctx) {
-    			if ((changed.relevantStations) && t1_value !== (t1_value = ctx.station + "")) {
+    			if ((changed.relevantStations) && t1_value !== (t1_value = ctx.station.length > 20 ? ctx.station.substring(0,20) : ctx.station + "")) {
     				set_data_dev(t1, t1_value);
     			}
 
@@ -574,7 +574,7 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block.name, type: "each", source: "(37:0) {#each relevantStations as station}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block.name, type: "each", source: "(41:0) {#each relevantStations as station}", ctx });
     	return block;
     }
 
@@ -601,7 +601,7 @@ var app = (function () {
 
     			each_1_anchor = empty();
     			attr_dev(h1, "class", "person svelte-e0kosw");
-    			add_location(h1, file, 35, 0, 909);
+    			add_location(h1, file, 39, 0, 1130);
     		},
 
     		l: function claim(nodes) {
@@ -679,6 +679,10 @@ var app = (function () {
       else if (window.location.href.includes("?barry")) {
         $$invalidate('relevantStations', relevantStations = ["Friendship Heights", "Farragut North", "Foggy Bottom-GWU", "Dupont Circle", "Waterfront"]);
         $$invalidate('person', person = "Barry");
+      }
+      else if (window.location.href.includes("?sam")) {
+        $$invalidate('relevantStations', relevantStations = ["Dupont Circle", "Gallery Pl-Chinatown", "Congress Heights", "U Street/African-Amer Civil War Memorial/Cardozo"]);
+        $$invalidate('person', person = "Sam & Hannah");
       }
       else {
         $$invalidate('relevantStations', relevantStations = ["Congress Heights", "Gallery Pl-Chinatown", "Cleveland Park"]);

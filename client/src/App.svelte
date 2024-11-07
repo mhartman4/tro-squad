@@ -11,6 +11,10 @@
     relevantStations = ["Friendship Heights", "Farragut North", "Foggy Bottom-GWU", "Dupont Circle", "Waterfront"]
     person = "Barry"
   }
+  else if (window.location.href.includes("?sam")) {
+    relevantStations = ["Dupont Circle", "Gallery Pl-Chinatown", "Congress Heights", "U Street/African-Amer Civil War Memorial/Cardozo"]
+    person = "Sam & Hannah"
+  }
   else {
     relevantStations = ["Congress Heights", "Gallery Pl-Chinatown", "Cleveland Park"]
   }
@@ -35,7 +39,7 @@
 </script>
 <h1 class="person">{person}</h1>
 {#each relevantStations as station}
-  <h1 class="station">🚉 {station}</h1>
+  <h1 class="station">🚉 {station.length > 20 ? station.substring(0,20) : station }</h1>
   {#if trainPredictions}
     <table>
     {#each trainPredictions as train}

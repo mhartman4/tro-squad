@@ -44,7 +44,7 @@
 
   .relevant-stations {
     margin: 5px;
-    display: grid;
+    display: flex;
     width: 100%;
   }
 </style>

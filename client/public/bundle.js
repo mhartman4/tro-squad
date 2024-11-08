@@ -1220,7 +1220,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			t = text(t_value);
-    			attr_dev(span, "class", "station svelte-d6d7ij");
+    			attr_dev(span, "class", "station svelte-1dug51i");
     			add_location(span, file$2, 29, 4, 941);
     			dispose = listen_dev(span, "click", click_handler);
     		},
@@ -1303,7 +1303,7 @@ var app = (function () {
     			stationpicker.$$.fragment.c();
     			t1 = space();
     			board.$$.fragment.c();
-    			attr_dev(div, "class", "relevant-stations svelte-d6d7ij");
+    			attr_dev(div, "class", "relevant-stations svelte-1dug51i");
     			add_location(div, file$2, 27, 0, 867);
     		},
 

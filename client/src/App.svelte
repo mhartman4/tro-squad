@@ -1,103 +1,50 @@
 <script>
-  import { onMount } from "svelte"
-  let trainPredictions, relevantStations;
-  let person = "";
-  
-  if (window.location.href.includes("?alex")) {
-    relevantStations = ["NoMa-Gallaudet U", "Metro Center", "Rosslyn"]
-    person = "Alex"
-  }
-  else if (window.location.href.includes("?barry")) {
-    relevantStations = ["Friendship Heights", "Farragut North", "Foggy Bottom-GWU", "Dupont Circle", "Waterfront"]
-    person = "Barry"
-  }
-  else if (window.location.href.includes("?sam")) {
-    relevantStations = ["Dupont Circle", "Gallery Pl-Chinatown", "Congress Heights", "U Street/African-Amer Civil War Memorial/Cardozo"]
-    person = "Sam & Hannah"
-  }
-  else {
-    relevantStations = ["Congress Heights", "Gallery Pl-Chinatown", "Cleveland Park"]
+  import Board from "./Board.svelte"
+  import StationPicker from "./StationPicker.svelte"
+  let relevantStations = []
+  let relevantStationNames = ""
+  if (localStorage.getItem("relevantStations")) {
+      relevantStations = JSON.parse(localStorage.getItem("relevantStations"));
   }
   
+  $: relevantStationNames = relevantStations.map(station => station.Name)
 
-  onMount(async () => {
-    trainPredictions = await getTrainPredictions()
-    // TODO: figure out refreshes!
-    // setInterval( () => {
-    //   trainPredictions = getTrainPredictions()
-    // }, 3000)
-  })
-
-  const getTrainPredictions = async () => {
-    const response = await fetch(`./train_predictions`)
-    return response.json()
+  const toggle = (station) => { 
+    if (relevantStations && station) {
+      let i = relevantStationNames.indexOf(station.Name)
+      if (i > -1) {
+        relevantStations = [...relevantStations.slice(0, i), ...relevantStations.slice(i + 1)];
+      }
+      else {        
+        relevantStations = [...relevantStations, station]
+      }
+      localStorage.setItem("relevantStations", JSON.stringify(relevantStations));
+    }
   }
-
-  
-  
+  // localStorage.setItem("relevantStations", []);
   
 </script>
-<h1 class="person">{person}</h1>
-{#each relevantStations as station}
-  <h1 class="station">🚉 {station.length > 20 ? station.substring(0,20) : station }</h1>
-  {#if trainPredictions}
-    <table>
-    {#each trainPredictions as train}
-      {#if train.LocationName == station && train.Line != "YL" && train.Destination != "ssenger"}
-        <tr class="train">
-          <td><span class="dot {train.Line}"></span></td>
-          <td>{train.Destination}&nbsp;&nbsp;&nbsp;&nbsp;</td>
-          <td>{train.Min}</td>
-        </tr>
-      {/if}
-    {/each}
-    </table>
-  {:else}
-    Loading...
-  {/if}
-{/each}
 
+<div class="relevant-stations">
+  {#each relevantStations as station}
+    <span class="station" on:click={() => toggle(station)}>{station.Name.length > 20 ? station.Name.substring(0,20) : station.Name}</span>
+  {/each}
+</div>
+
+<StationPicker bind:relevantStations={relevantStations}/>
+<Board bind:relevantStationNames={relevantStationNames} />
 <style>
-  .dot {
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    display: inline-block;
-  }
-  .RD {
-    background-color: red;
-  }
-
-  .SV {
-    background-color: silver;
-  }
-
-  .YL {
-    background-color: yellow;
-  }
-  .BL {
-    background-color: blue;
-  }
-  .OR {
-    background-color: orange;
-  }
-  .GR {
-    background-color: green;
-  }
   .station {
-    font-family: "VT323";
-    text-transform: uppercase;
-    color: #FF5442;
-    margin-bottom: 3px;
+    background-color: grey;
+    border-radius: 5px;
+    padding: 2px;
+    margin: 2px;
+    text-align: center;
   }
-  .train {
-    font-family: "VT323";
-    text-transform: uppercase;
-    color: #FFF068;
-    font-size: 22px;
-  }
-  .person {
-    font-family: "VT323";
-    text-transform: uppercase;
+
+  .relevant-stations {
+    margin: 5px;
+    display: grid;
+    width: 100%;
   }
 </style>

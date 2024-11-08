@@ -26,6 +26,23 @@ def train_predictions():
     all_predictions = json.loads(requests.get("https://api.wmata.com/StationPrediction.svc/json/GetPrediction/All", headers={"Cache-Control": "no-cache", 'api_key': wmata_api_key}).text)
     return json.dumps(all_predictions["Trains"])
 
+@app.route("/stations")
+def stations():
+    response = json.loads(requests.get("https://api.wmata.com/Rail.svc/json/jStations", headers={"Cache-Control": "no-cache", 'api_key': wmata_api_key}).text)
+    stations = []
+    
+    ## WMATA treats intersection stations as two different ones, let's merge them and add an array of lines
+    for station in response["Stations"]:
+        station["Lines"] = [station["LineCode1"],station["LineCode2"],station["LineCode3"],station["LineCode4"]]
+        station["Lines"] = [line for line in station["Lines"] if line != None]
+    for station in response["Stations"]:
+        matches = [match for match in response["Stations"] if station["StationTogether1"] == match["Code"]]
+        for match in matches:
+            for line in match["Lines"]:
+                station["Lines"].append(line)
+            response["Stations"].remove(match)
+    return json.dumps(response["Stations"])
+
 
 if __name__ == "__main__":
     app.run(debug=True)

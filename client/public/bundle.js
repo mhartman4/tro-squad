@@ -820,7 +820,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			span = element("span");
-    			attr_dev(span, "class", span_class_value = "dot " + ctx.line + " svelte-t7z9ov");
+    			attr_dev(span, "class", span_class_value = "dot " + ctx.line + " svelte-1ef2ird");
     			add_location(span, file$1, 59, 14, 1728);
     		},
 
@@ -829,7 +829,7 @@ var app = (function () {
     		},
 
     		p: function update(changed, ctx) {
-    			if ((changed.searchResults) && span_class_value !== (span_class_value = "dot " + ctx.line + " svelte-t7z9ov")) {
+    			if ((changed.searchResults) && span_class_value !== (span_class_value = "dot " + ctx.line + " svelte-1ef2ird")) {
     				attr_dev(span, "class", span_class_value);
     			}
     		},
@@ -917,12 +917,12 @@ var app = (function () {
     			}
 
     			t2 = space();
-    			attr_dev(button, "class", button_class_value = "" + null_to_empty((ctx.relevantStationNames.indexOf(ctx.station.Name) > -1 ? "is-relevant" : "")) + " svelte-t7z9ov");
+    			attr_dev(button, "class", button_class_value = "" + null_to_empty((ctx.relevantStationNames.indexOf(ctx.station.Name) > -1 ? "is-relevant" : "")) + " svelte-1ef2ird");
     			attr_dev(button, "autocomplete", "off");
     			add_location(button, file$1, 55, 8, 1428);
-    			attr_dev(td, "class", "svelte-t7z9ov");
+    			attr_dev(td, "class", "svelte-1ef2ird");
     			add_location(td, file$1, 54, 6, 1415);
-    			attr_dev(tr, "class", "station svelte-t7z9ov");
+    			attr_dev(tr, "class", "station svelte-1ef2ird");
     			add_location(tr, file$1, 53, 4, 1388);
     			dispose = listen_dev(button, "click", click_handler);
     		},
@@ -969,7 +969,7 @@ var app = (function () {
     				each_blocks.length = each_value_1.length;
     			}
 
-    			if ((changed.relevantStationNames || changed.searchResults) && button_class_value !== (button_class_value = "" + null_to_empty((ctx.relevantStationNames.indexOf(ctx.station.Name) > -1 ? "is-relevant" : "")) + " svelte-t7z9ov")) {
+    			if ((changed.relevantStationNames || changed.searchResults) && button_class_value !== (button_class_value = "" + null_to_empty((ctx.relevantStationNames.indexOf(ctx.station.Name) > -1 ? "is-relevant" : "")) + " svelte-1ef2ird")) {
     				attr_dev(button, "class", button_class_value);
     			}
     		},
@@ -1011,9 +1011,9 @@ var app = (function () {
     			attr_dev(input, "type", "text");
     			attr_dev(input, "id", "search");
     			attr_dev(input, "placeholder", "🔍 Add stations");
-    			attr_dev(input, "class", "svelte-t7z9ov");
+    			attr_dev(input, "class", "svelte-1ef2ird");
     			add_location(input, file$1, 50, 0, 1236);
-    			attr_dev(table, "class", "svelte-t7z9ov");
+    			attr_dev(table, "class", "svelte-1ef2ird");
     			add_location(table, file$1, 51, 0, 1343);
 
     			dispose = [

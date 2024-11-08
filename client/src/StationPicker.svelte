@@ -109,7 +109,7 @@
   }
   #search {
     text-transform: uppercase;
-    color: #FFF068;
+    color: #FF5442;
     font-size: 22px;
     background-color: #21292f;
     width: 100%;
@@ -117,7 +117,7 @@
     border-radius: 10px;
   }
   ::placeholder {
-    color: #FF5442;
+    color: #FFF068;
     opacity: 1; 
   }
   .is-relevant {

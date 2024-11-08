@@ -12,7 +12,6 @@
     return response.json()
   }
 
-  console.log(relevantStationNames)
 </script>
 {#if relevantStationNames}
   {#each relevantStationNames as station}

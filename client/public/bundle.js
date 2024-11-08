@@ -471,7 +471,7 @@ var app = (function () {
     			}
 
     			t = space();
-    			add_location(table, file, 19, 6, 525);
+    			add_location(table, file, 19, 6, 522);
     		},
 
     		m: function mount(target, anchor) {
@@ -537,12 +537,12 @@ var app = (function () {
     			td2 = element("td");
     			t4 = text(t4_value);
     			attr_dev(span, "class", span_class_value = "dot " + ctx.train.Line + " svelte-mxl9f4");
-    			add_location(span, file, 23, 16, 718);
-    			add_location(td0, file, 23, 12, 714);
-    			add_location(td1, file, 24, 12, 774);
-    			add_location(td2, file, 25, 12, 839);
+    			add_location(span, file, 23, 16, 715);
+    			add_location(td0, file, 23, 12, 711);
+    			add_location(td1, file, 24, 12, 771);
+    			add_location(td2, file, 25, 12, 836);
     			attr_dev(tr, "class", "train svelte-mxl9f4");
-    			add_location(tr, file, 22, 10, 683);
+    			add_location(tr, file, 22, 10, 680);
     		},
 
     		m: function mount(target, anchor) {
@@ -628,7 +628,7 @@ var app = (function () {
 
     // (17:2) {#each relevantStationNames as station}
     function create_each_block(ctx) {
-    	var h1, t0, t1_value = ctx.station.length > 20 ? ctx.station.substring(0,20) : ctx.station + "", t1, t2, if_block_anchor;
+    	var h1, t0_value = ctx.station.length > 20 ? ctx.station.substring(0,20) : ctx.station + "", t0, t1, if_block_anchor;
 
     	function select_block_type(changed, ctx) {
     		if (ctx.trainPredictions) return create_if_block_1;
@@ -641,9 +641,8 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			h1 = element("h1");
-    			t0 = text("🚉 ");
-    			t1 = text(t1_value);
-    			t2 = space();
+    			t0 = text(t0_value);
+    			t1 = space();
     			if_block.c();
     			if_block_anchor = empty();
     			attr_dev(h1, "class", "board-station svelte-mxl9f4");
@@ -653,15 +652,14 @@ var app = (function () {
     		m: function mount(target, anchor) {
     			insert_dev(target, h1, anchor);
     			append_dev(h1, t0);
-    			append_dev(h1, t1);
-    			insert_dev(target, t2, anchor);
+    			insert_dev(target, t1, anchor);
     			if_block.m(target, anchor);
     			insert_dev(target, if_block_anchor, anchor);
     		},
 
     		p: function update(changed, ctx) {
-    			if ((changed.relevantStationNames) && t1_value !== (t1_value = ctx.station.length > 20 ? ctx.station.substring(0,20) : ctx.station + "")) {
-    				set_data_dev(t1, t1_value);
+    			if ((changed.relevantStationNames) && t0_value !== (t0_value = ctx.station.length > 20 ? ctx.station.substring(0,20) : ctx.station + "")) {
+    				set_data_dev(t0, t0_value);
     			}
 
     			if (current_block_type === (current_block_type = select_block_type(changed, ctx)) && if_block) {
@@ -679,7 +677,7 @@ var app = (function () {
     		d: function destroy(detaching) {
     			if (detaching) {
     				detach_dev(h1);
-    				detach_dev(t2);
+    				detach_dev(t1);
     			}
 
     			if_block.d(detaching);

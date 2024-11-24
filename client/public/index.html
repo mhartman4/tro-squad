@@ -6,7 +6,9 @@
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-CRYVS5S82K"></script>
 	<script>
 	  
-	  console.log(document.location.host)
+	  if (document.location.host == "tro-squad-3edeb651371b.herokuapp.com") {
+	  	window.location.replace("trosquad.com")
+	  }
 	  window.dataLayer = window.dataLayer || [];
 	  function gtag(){dataLayer.push(arguments);}
 	  gtag('js', new Date());

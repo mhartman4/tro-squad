@@ -63,26 +63,17 @@ button:focus {
 /*	border-color: #666;*/
 }
 
+/* Metro line color classes */
+.dot {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    display: inline-block;
+}
 
-.FR {
-	background-color:green;
-}
-.CO {
-	background-color: #4ec676;
-}
-.ST {
-	background-color: #8ecc5e;
-
-}
-.KR {
-	background-color: #b6d04f;
-}
-.RO {
-	background-color: #f7d636;
-}
-.RB {
-	background-color: #f7a33d;
-}
-.ML {
-	background-color: #f26e47;
-}
+.RD {background-color: red;}
+.SV {background-color: silver;}
+.YL {background-color: yellow;}
+.BL {background-color: blue;}
+.OR {background-color: orange;}
+.GR {background-color: green;}

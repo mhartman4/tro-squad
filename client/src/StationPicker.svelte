@@ -3,9 +3,10 @@
   let allStations
   let query = ""
   let searchResults = []
+  let placeholder
   export let relevantStations
   $: relevantStationNames = relevantStations.map(station => station.Name)
-
+  $: placeholder = relevantStations.length == 0 ? "Add stations" : ""
   onMount(async () => {
     allStations = await getStations()
     searchResults = []
@@ -48,7 +49,7 @@
 
   
 </script>
-<input type="text" id="search" placeholder="🔍 Add stations" bind:value={query} on:input={searchStations}>
+<input type="text" id="search" placeholder="🔍 {placeholder}" bind:value={query} on:input={searchStations}>
 <table>
 {#each searchResults as station}
     <tr class="station">
@@ -71,34 +72,7 @@
 
 
 <style>
-  .dot {
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-left: 2px;
-    margin-right: 2px;
-  }
-  .RD {
-    background-color: red;
-  }
-
-  .SV {
-    background-color: silver;
-  }
-
-  .YL {
-    background-color: yellow;
-  }
-  .BL {
-    background-color: blue;
-  }
-  .OR {
-    background-color: orange;
-  }
-  .GR {
-    background-color: green;
-  }
+  
   .station {
     text-transform: uppercase;
     color: #FFF068;

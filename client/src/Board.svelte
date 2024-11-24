@@ -19,7 +19,7 @@
     {#if trainPredictions}
       <table>
       {#each trainPredictions as train}
-        {#if train.LocationName == station && train.Line != "YL" && train.Destination != "ssenger"}
+        {#if train.LocationName == station && train.Destination != "ssenger"}
           <tr class="train">
             <td><span class="dot {train.Line}"></span></td>
             <td>{train.Destination}&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -35,32 +35,6 @@
 {/if}
 
 <style>
-  .dot {
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    display: inline-block;
-  }
-  .RD {
-    background-color: red;
-  }
-
-  .SV {
-    background-color: silver;
-  }
-
-  .YL {
-    background-color: yellow;
-  }
-  .BL {
-    background-color: blue;
-  }
-  .OR {
-    background-color: orange;
-  }
-  .GR {
-    background-color: green;
-  }
   .board-station {
     text-transform: uppercase;
     color: #FF5442;

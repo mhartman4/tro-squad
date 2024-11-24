@@ -520,7 +520,7 @@ var app = (function () {
     	return block;
     }
 
-    // (22:8) {#if train.LocationName == station && train.Line != "YL" && train.Destination != "ssenger"}
+    // (22:8) {#if train.LocationName == station && train.Destination != "ssenger"}
     function create_if_block_2(ctx) {
     	var tr, td0, span, span_class_value, t0, td1, t1_value = ctx.train.Destination + "", t1, t2, t3, td2, t4_value = ctx.train.Min + "", t4;
 
@@ -536,13 +536,13 @@ var app = (function () {
     			t3 = space();
     			td2 = element("td");
     			t4 = text(t4_value);
-    			attr_dev(span, "class", span_class_value = "dot " + ctx.train.Line + " svelte-mxl9f4");
-    			add_location(span, file, 23, 16, 715);
-    			add_location(td0, file, 23, 12, 711);
-    			add_location(td1, file, 24, 12, 771);
-    			add_location(td2, file, 25, 12, 836);
-    			attr_dev(tr, "class", "train svelte-mxl9f4");
-    			add_location(tr, file, 22, 10, 680);
+    			attr_dev(span, "class", span_class_value = "dot " + ctx.train.Line + " svelte-2n481f");
+    			add_location(span, file, 23, 16, 693);
+    			add_location(td0, file, 23, 12, 689);
+    			add_location(td1, file, 24, 12, 749);
+    			add_location(td2, file, 25, 12, 814);
+    			attr_dev(tr, "class", "train svelte-2n481f");
+    			add_location(tr, file, 22, 10, 658);
     		},
 
     		m: function mount(target, anchor) {
@@ -559,7 +559,7 @@ var app = (function () {
     		},
 
     		p: function update(changed, ctx) {
-    			if ((changed.trainPredictions) && span_class_value !== (span_class_value = "dot " + ctx.train.Line + " svelte-mxl9f4")) {
+    			if ((changed.trainPredictions) && span_class_value !== (span_class_value = "dot " + ctx.train.Line + " svelte-2n481f")) {
     				attr_dev(span, "class", span_class_value);
     			}
 
@@ -578,7 +578,7 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2.name, type: "if", source: "(22:8) {#if train.LocationName == station && train.Line != \"YL\" && train.Destination != \"ssenger\"}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2.name, type: "if", source: "(22:8) {#if train.LocationName == station && train.Destination != \"ssenger\"}", ctx });
     	return block;
     }
 
@@ -586,7 +586,7 @@ var app = (function () {
     function create_each_block_1(ctx) {
     	var if_block_anchor;
 
-    	var if_block = (ctx.train.LocationName == ctx.station && ctx.train.Line != "YL" && ctx.train.Destination != "ssenger") && create_if_block_2(ctx);
+    	var if_block = (ctx.train.LocationName == ctx.station && ctx.train.Destination != "ssenger") && create_if_block_2(ctx);
 
     	const block = {
     		c: function create() {
@@ -600,7 +600,7 @@ var app = (function () {
     		},
 
     		p: function update(changed, ctx) {
-    			if (ctx.train.LocationName == ctx.station && ctx.train.Line != "YL" && ctx.train.Destination != "ssenger") {
+    			if (ctx.train.LocationName == ctx.station && ctx.train.Destination != "ssenger") {
     				if (if_block) {
     					if_block.p(changed, ctx);
     				} else {
@@ -645,7 +645,7 @@ var app = (function () {
     			t1 = space();
     			if_block.c();
     			if_block_anchor = empty();
-    			attr_dev(h1, "class", "board-station svelte-mxl9f4");
+    			attr_dev(h1, "class", "board-station svelte-2n481f");
     			add_location(h1, file, 17, 4, 400);
     		},
 
@@ -813,15 +813,15 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (59:12) {#if line}
+    // (60:12) {#if line}
     function create_if_block$1(ctx) {
     	var span, span_class_value;
 
     	const block = {
     		c: function create() {
     			span = element("span");
-    			attr_dev(span, "class", span_class_value = "dot " + ctx.line + " svelte-1ef2ird");
-    			add_location(span, file$1, 59, 14, 1728);
+    			attr_dev(span, "class", span_class_value = "dot " + ctx.line + " svelte-4n72g3");
+    			add_location(span, file$1, 60, 14, 1816);
     		},
 
     		m: function mount(target, anchor) {
@@ -829,7 +829,7 @@ var app = (function () {
     		},
 
     		p: function update(changed, ctx) {
-    			if ((changed.searchResults) && span_class_value !== (span_class_value = "dot " + ctx.line + " svelte-1ef2ird")) {
+    			if ((changed.searchResults) && span_class_value !== (span_class_value = "dot " + ctx.line + " svelte-4n72g3")) {
     				attr_dev(span, "class", span_class_value);
     			}
     		},
@@ -840,11 +840,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$1.name, type: "if", source: "(59:12) {#if line}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$1.name, type: "if", source: "(60:12) {#if line}", ctx });
     	return block;
     }
 
-    // (58:10) {#each station.Lines as line}
+    // (59:10) {#each station.Lines as line}
     function create_each_block_1$1(ctx) {
     	var if_block_anchor;
 
@@ -884,11 +884,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$1.name, type: "each", source: "(58:10) {#each station.Lines as line}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$1.name, type: "each", source: "(59:10) {#each station.Lines as line}", ctx });
     	return block;
     }
 
-    // (53:0) {#each searchResults as station}
+    // (54:0) {#each searchResults as station}
     function create_each_block$1(ctx) {
     	var tr, td, button, t0_value = ctx.station.Name.length > 20 ? ctx.station.Name.substring(0,20) : ctx.station.Name + "", t0, t1, button_class_value, t2, dispose;
 
@@ -917,13 +917,13 @@ var app = (function () {
     			}
 
     			t2 = space();
-    			attr_dev(button, "class", button_class_value = "" + null_to_empty((ctx.relevantStationNames.indexOf(ctx.station.Name) > -1 ? "is-relevant" : "")) + " svelte-1ef2ird");
+    			attr_dev(button, "class", button_class_value = "" + null_to_empty((ctx.relevantStationNames.indexOf(ctx.station.Name) > -1 ? "is-relevant" : "")) + " svelte-4n72g3");
     			attr_dev(button, "autocomplete", "off");
-    			add_location(button, file$1, 55, 8, 1428);
-    			attr_dev(td, "class", "svelte-1ef2ird");
-    			add_location(td, file$1, 54, 6, 1415);
-    			attr_dev(tr, "class", "station svelte-1ef2ird");
-    			add_location(tr, file$1, 53, 4, 1388);
+    			add_location(button, file$1, 56, 8, 1516);
+    			attr_dev(td, "class", "svelte-4n72g3");
+    			add_location(td, file$1, 55, 6, 1503);
+    			attr_dev(tr, "class", "station svelte-4n72g3");
+    			add_location(tr, file$1, 54, 4, 1476);
     			dispose = listen_dev(button, "click", click_handler);
     		},
 
@@ -969,7 +969,7 @@ var app = (function () {
     				each_blocks.length = each_value_1.length;
     			}
 
-    			if ((changed.relevantStationNames || changed.searchResults) && button_class_value !== (button_class_value = "" + null_to_empty((ctx.relevantStationNames.indexOf(ctx.station.Name) > -1 ? "is-relevant" : "")) + " svelte-1ef2ird")) {
+    			if ((changed.relevantStationNames || changed.searchResults) && button_class_value !== (button_class_value = "" + null_to_empty((ctx.relevantStationNames.indexOf(ctx.station.Name) > -1 ? "is-relevant" : "")) + " svelte-4n72g3")) {
     				attr_dev(button, "class", button_class_value);
     			}
     		},
@@ -984,12 +984,12 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$1.name, type: "each", source: "(53:0) {#each searchResults as station}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$1.name, type: "each", source: "(54:0) {#each searchResults as station}", ctx });
     	return block;
     }
 
     function create_fragment$1(ctx) {
-    	var input, t, table, dispose;
+    	var input, input_placeholder_value, t, table, dispose;
 
     	let each_value = ctx.searchResults;
 
@@ -1010,11 +1010,11 @@ var app = (function () {
     			}
     			attr_dev(input, "type", "text");
     			attr_dev(input, "id", "search");
-    			attr_dev(input, "placeholder", "🔍 Add stations");
-    			attr_dev(input, "class", "svelte-1ef2ird");
-    			add_location(input, file$1, 50, 0, 1236);
-    			attr_dev(table, "class", "svelte-1ef2ird");
-    			add_location(table, file$1, 51, 0, 1343);
+    			attr_dev(input, "placeholder", input_placeholder_value = "🔍 " + ctx.placeholder);
+    			attr_dev(input, "class", "svelte-4n72g3");
+    			add_location(input, file$1, 51, 0, 1323);
+    			attr_dev(table, "class", "svelte-4n72g3");
+    			add_location(table, file$1, 52, 0, 1431);
 
     			dispose = [
     				listen_dev(input, "input", ctx.input_input_handler),
@@ -1041,6 +1041,10 @@ var app = (function () {
 
     		p: function update(changed, ctx) {
     			if (changed.query && (input.value !== ctx.query)) set_input_value(input, ctx.query);
+
+    			if ((changed.placeholder) && input_placeholder_value !== (input_placeholder_value = "🔍 " + ctx.placeholder)) {
+    				attr_dev(input, "placeholder", input_placeholder_value);
+    			}
 
     			if (changed.relevantStationNames || changed.searchResults) {
     				each_value = ctx.searchResults;
@@ -1088,8 +1092,8 @@ var app = (function () {
     	let allStations;
       let query = "";
       let searchResults = [];
+      let placeholder;
       let { relevantStations } = $$props;
-
       onMount(async () => {
         allStations = await getStations();
         $$invalidate('searchResults', searchResults = []);
@@ -1145,13 +1149,14 @@ var app = (function () {
     	};
 
     	$$self.$capture_state = () => {
-    		return { allStations, query, searchResults, relevantStations, relevantStationNames };
+    		return { allStations, query, searchResults, placeholder, relevantStations, relevantStationNames };
     	};
 
     	$$self.$inject_state = $$props => {
     		if ('allStations' in $$props) allStations = $$props.allStations;
     		if ('query' in $$props) $$invalidate('query', query = $$props.query);
     		if ('searchResults' in $$props) $$invalidate('searchResults', searchResults = $$props.searchResults);
+    		if ('placeholder' in $$props) $$invalidate('placeholder', placeholder = $$props.placeholder);
     		if ('relevantStations' in $$props) $$invalidate('relevantStations', relevantStations = $$props.relevantStations);
     		if ('relevantStationNames' in $$props) $$invalidate('relevantStationNames', relevantStationNames = $$props.relevantStationNames);
     	};
@@ -1160,11 +1165,13 @@ var app = (function () {
 
     	$$self.$$.update = ($$dirty = { relevantStations: 1 }) => {
     		if ($$dirty.relevantStations) { $$invalidate('relevantStationNames', relevantStationNames = relevantStations.map(station => station.Name)); }
+    		if ($$dirty.relevantStations) { $$invalidate('placeholder', placeholder = relevantStations.length == 0 ? "Add stations" : ""); }
     	};
 
     	return {
     		query,
     		searchResults,
+    		placeholder,
     		relevantStations,
     		searchStations,
     		toggle,
@@ -1206,9 +1213,9 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (29:2) {#each relevantStations as station}
+    // (33:2) {#each relevantStations as station}
     function create_each_block$2(ctx) {
-    	var span, t_value = ctx.station.Name.length > 20 ? ctx.station.Name.substring(0,20) : ctx.station.Name + "", t, dispose;
+    	var span, t0_value = ctx.station.Name.length > 20 ? ctx.station.Name.substring(0,20) : ctx.station.Name + "", t0, t1, dispose;
 
     	function click_handler() {
     		return ctx.click_handler(ctx);
@@ -1217,21 +1224,23 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			span = element("span");
-    			t = text(t_value);
+    			t0 = text(t0_value);
+    			t1 = text("  X");
     			attr_dev(span, "class", "station svelte-1dug51i");
-    			add_location(span, file$2, 29, 4, 941);
+    			add_location(span, file$2, 33, 4, 1091);
     			dispose = listen_dev(span, "click", click_handler);
     		},
 
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
-    			append_dev(span, t);
+    			append_dev(span, t0);
+    			append_dev(span, t1);
     		},
 
     		p: function update(changed, new_ctx) {
     			ctx = new_ctx;
-    			if ((changed.relevantStations) && t_value !== (t_value = ctx.station.Name.length > 20 ? ctx.station.Name.substring(0,20) : ctx.station.Name + "")) {
-    				set_data_dev(t, t_value);
+    			if ((changed.relevantStations) && t0_value !== (t0_value = ctx.station.Name.length > 20 ? ctx.station.Name.substring(0,20) : ctx.station.Name + "")) {
+    				set_data_dev(t0, t0_value);
     			}
     		},
 
@@ -1243,7 +1252,7 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$2.name, type: "each", source: "(29:2) {#each relevantStations as station}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$2.name, type: "each", source: "(33:2) {#each relevantStations as station}", ctx });
     	return block;
     }
 
@@ -1302,7 +1311,7 @@ var app = (function () {
     			t1 = space();
     			board.$$.fragment.c();
     			attr_dev(div, "class", "relevant-stations svelte-1dug51i");
-    			add_location(div, file$2, 27, 0, 867);
+    			add_location(div, file$2, 31, 0, 1017);
     		},
 
     		l: function claim(nodes) {
@@ -1402,6 +1411,8 @@ var app = (function () {
     	
       let relevantStations = [];
       let relevantStationNames = "";
+      let possibleLines = [];
+      let relevantLines = possibleLines;
       if (localStorage.getItem("relevantStations")) {
           $$invalidate('relevantStations', relevantStations = JSON.parse(localStorage.getItem("relevantStations")));
       }
@@ -1418,7 +1429,6 @@ var app = (function () {
           localStorage.setItem("relevantStations", JSON.stringify(relevantStations));
         }
       };
-      // localStorage.setItem("relevantStations", []);
 
     	const click_handler = ({ station }) => toggle(station);
 
@@ -1439,10 +1449,13 @@ var app = (function () {
     	$$self.$inject_state = $$props => {
     		if ('relevantStations' in $$props) $$invalidate('relevantStations', relevantStations = $$props.relevantStations);
     		if ('relevantStationNames' in $$props) $$invalidate('relevantStationNames', relevantStationNames = $$props.relevantStationNames);
+    		if ('possibleLines' in $$props) possibleLines = $$props.possibleLines;
+    		if ('relevantLines' in $$props) relevantLines = $$props.relevantLines;
     	};
 
     	$$self.$$.update = ($$dirty = { relevantStations: 1 }) => {
     		if ($$dirty.relevantStations) { $$invalidate('relevantStationNames', relevantStationNames = relevantStations.map(station => station.Name)); }
+    		if ($$dirty.relevantStations) { possibleLines = [... new Set(relevantStations.map(station => station.Lines).flat())]; }
     	};
 
     	return {

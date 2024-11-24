@@ -18,6 +18,7 @@
       let i = relevantStationNames.indexOf(station.Name)
       if (i > -1) {
         relevantStations = [...relevantStations.slice(0, i), ...relevantStations.slice(i + 1)];
+        gtag('event', 'removeStation', {"station": station, "button": "top-button"})
       }
       else {        
         relevantStations = [...relevantStations, station]

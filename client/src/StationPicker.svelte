@@ -23,6 +23,7 @@
     }
     else {
       return searchResults = allStations.filter(station => {
+        gtag('event', 'stationSearch', {"query": query})
         let stationName = station.Name.toLowerCase().replace("'", "");
         return stationName.includes(query.toLowerCase().replace("'", ""))
       })
@@ -40,6 +41,7 @@
         relevantStations = [...relevantStations, station]
       }
       localStorage.setItem("relevantStations", JSON.stringify(relevantStations));
+      gtag('event', 'addStation', {"station": station})
     }
     query = ""
     searchStations()

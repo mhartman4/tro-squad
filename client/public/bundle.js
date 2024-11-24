@@ -813,7 +813,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (60:12) {#if line}
+    // (62:12) {#if line}
     function create_if_block$1(ctx) {
     	var span, span_class_value;
 
@@ -821,7 +821,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			attr_dev(span, "class", span_class_value = "dot " + ctx.line + " svelte-4n72g3");
-    			add_location(span, file$1, 60, 14, 1816);
+    			add_location(span, file$1, 62, 14, 1929);
     		},
 
     		m: function mount(target, anchor) {
@@ -840,11 +840,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$1.name, type: "if", source: "(60:12) {#if line}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$1.name, type: "if", source: "(62:12) {#if line}", ctx });
     	return block;
     }
 
-    // (59:10) {#each station.Lines as line}
+    // (61:10) {#each station.Lines as line}
     function create_each_block_1$1(ctx) {
     	var if_block_anchor;
 
@@ -884,11 +884,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$1.name, type: "each", source: "(59:10) {#each station.Lines as line}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$1.name, type: "each", source: "(61:10) {#each station.Lines as line}", ctx });
     	return block;
     }
 
-    // (54:0) {#each searchResults as station}
+    // (56:0) {#each searchResults as station}
     function create_each_block$1(ctx) {
     	var tr, td, button, t0_value = ctx.station.Name.length > 20 ? ctx.station.Name.substring(0,20) : ctx.station.Name + "", t0, t1, button_class_value, t2, dispose;
 
@@ -919,11 +919,11 @@ var app = (function () {
     			t2 = space();
     			attr_dev(button, "class", button_class_value = "" + null_to_empty((ctx.relevantStationNames.indexOf(ctx.station.Name) > -1 ? "is-relevant" : "")) + " svelte-4n72g3");
     			attr_dev(button, "autocomplete", "off");
-    			add_location(button, file$1, 56, 8, 1516);
+    			add_location(button, file$1, 58, 8, 1629);
     			attr_dev(td, "class", "svelte-4n72g3");
-    			add_location(td, file$1, 55, 6, 1503);
+    			add_location(td, file$1, 57, 6, 1616);
     			attr_dev(tr, "class", "station svelte-4n72g3");
-    			add_location(tr, file$1, 54, 4, 1476);
+    			add_location(tr, file$1, 56, 4, 1589);
     			dispose = listen_dev(button, "click", click_handler);
     		},
 
@@ -984,7 +984,7 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$1.name, type: "each", source: "(54:0) {#each searchResults as station}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$1.name, type: "each", source: "(56:0) {#each searchResults as station}", ctx });
     	return block;
     }
 
@@ -1012,9 +1012,9 @@ var app = (function () {
     			attr_dev(input, "id", "search");
     			attr_dev(input, "placeholder", input_placeholder_value = "🔍 " + ctx.placeholder);
     			attr_dev(input, "class", "svelte-4n72g3");
-    			add_location(input, file$1, 51, 0, 1323);
+    			add_location(input, file$1, 53, 0, 1436);
     			attr_dev(table, "class", "svelte-4n72g3");
-    			add_location(table, file$1, 52, 0, 1431);
+    			add_location(table, file$1, 54, 0, 1544);
 
     			dispose = [
     				listen_dev(input, "input", ctx.input_input_handler),
@@ -1110,6 +1110,7 @@ var app = (function () {
         }
         else {
           return $$invalidate('searchResults', searchResults = allStations.filter(station => {
+            gtag('event', 'stationSearch', {"query": query});
             let stationName = station.Name.toLowerCase().replace("'", "");
             return stationName.includes(query.toLowerCase().replace("'", ""))
           }))
@@ -1127,6 +1128,7 @@ var app = (function () {
             $$invalidate('relevantStations', relevantStations = [...relevantStations, station]);
           }
           localStorage.setItem("relevantStations", JSON.stringify(relevantStations));
+          gtag('event', 'addStation', {"station": station});
         }
         $$invalidate('query', query = "");
         searchStations();
@@ -1213,7 +1215,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (33:2) {#each relevantStations as station}
+    // (34:2) {#each relevantStations as station}
     function create_each_block$2(ctx) {
     	var span, t0_value = ctx.station.Name.length > 20 ? ctx.station.Name.substring(0,20) : ctx.station.Name + "", t0, t1, dispose;
 
@@ -1227,7 +1229,7 @@ var app = (function () {
     			t0 = text(t0_value);
     			t1 = text("  X");
     			attr_dev(span, "class", "station svelte-1dug51i");
-    			add_location(span, file$2, 33, 4, 1091);
+    			add_location(span, file$2, 34, 4, 1176);
     			dispose = listen_dev(span, "click", click_handler);
     		},
 
@@ -1252,7 +1254,7 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$2.name, type: "each", source: "(33:2) {#each relevantStations as station}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$2.name, type: "each", source: "(34:2) {#each relevantStations as station}", ctx });
     	return block;
     }
 
@@ -1311,7 +1313,7 @@ var app = (function () {
     			t1 = space();
     			board.$$.fragment.c();
     			attr_dev(div, "class", "relevant-stations svelte-1dug51i");
-    			add_location(div, file$2, 31, 0, 1017);
+    			add_location(div, file$2, 32, 0, 1102);
     		},
 
     		l: function claim(nodes) {
@@ -1422,6 +1424,7 @@ var app = (function () {
           let i = relevantStationNames.indexOf(station.Name);
           if (i > -1) {
             $$invalidate('relevantStations', relevantStations = [...relevantStations.slice(0, i), ...relevantStations.slice(i + 1)]);
+            gtag('event', 'removeStation', {"station": station, "button": "top-button"});
           }
           else {        
             $$invalidate('relevantStations', relevantStations = [...relevantStations, station]);

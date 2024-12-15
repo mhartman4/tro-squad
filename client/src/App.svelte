@@ -22,6 +22,10 @@
   if (localStorage.getItem("hideBusses")) {
       hideBusses = JSON.parse(localStorage.getItem("hideBusses"));
   }
+  else {
+    hideBusses = true
+    localStorage.setItem("hideBusses", JSON.stringify(hideBusses));
+  }
   
   $: relevantStationNames = relevantStations.map(station => station.Name)
   $: relevantBusStops = relevantBusStops

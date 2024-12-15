@@ -2135,7 +2135,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (68:2) {#each relevantStations as station}
+    // (72:2) {#each relevantStations as station}
     function create_each_block_1$4(ctx) {
     	var span, t0_value = ctx.station.Name.length > 20 ? ctx.station.Name.substring(0,20) : ctx.station.Name + "", t0, t1, dispose;
 
@@ -2149,7 +2149,7 @@ var app = (function () {
     			t0 = text(t0_value);
     			t1 = space();
     			attr_dev(span, "class", "station svelte-112oy55");
-    			add_location(span, file$4, 68, 4, 2132);
+    			add_location(span, file$4, 72, 4, 2235);
     			dispose = listen_dev(span, "click", click_handler);
     		},
 
@@ -2174,11 +2174,11 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$4.name, type: "each", source: "(68:2) {#each relevantStations as station}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$4.name, type: "each", source: "(72:2) {#each relevantStations as station}", ctx });
     	return block;
     }
 
-    // (74:0) {#if !hideBusses}
+    // (78:0) {#if !hideBusses}
     function create_if_block_2$1(ctx) {
     	var div;
 
@@ -2198,7 +2198,7 @@ var app = (function () {
     				each_blocks[i].c();
     			}
     			attr_dev(div, "class", "relevant-stations svelte-112oy55");
-    			add_location(div, file$4, 74, 2, 2310);
+    			add_location(div, file$4, 78, 2, 2413);
     		},
 
     		m: function mount(target, anchor) {
@@ -2241,11 +2241,11 @@ var app = (function () {
     			destroy_each(each_blocks, detaching);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2$1.name, type: "if", source: "(74:0) {#if !hideBusses}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2$1.name, type: "if", source: "(78:0) {#if !hideBusses}", ctx });
     	return block;
     }
 
-    // (76:4) {#each relevantBusStops as stop}
+    // (80:4) {#each relevantBusStops as stop}
     function create_each_block$4(ctx) {
     	var span, t_value = ctx.stop.Name + " (" + ctx.stop.StopID + ")" + "", t, dispose;
 
@@ -2258,7 +2258,7 @@ var app = (function () {
     			span = element("span");
     			t = text(t_value);
     			attr_dev(span, "class", "bus-stop svelte-112oy55");
-    			add_location(span, file$4, 76, 6, 2385);
+    			add_location(span, file$4, 80, 6, 2488);
     			dispose = listen_dev(span, "click", click_handler_1);
     		},
 
@@ -2282,11 +2282,11 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$4.name, type: "each", source: "(76:4) {#each relevantBusStops as stop}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$4.name, type: "each", source: "(80:4) {#each relevantBusStops as stop}", ctx });
     	return block;
     }
 
-    // (83:0) {#if !hideBusses}
+    // (87:0) {#if !hideBusses}
     function create_if_block_1$2(ctx) {
     	var updating_relevantBusStops, current;
 
@@ -2341,11 +2341,11 @@ var app = (function () {
     			destroy_component(busstoppicker, detaching);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1$2.name, type: "if", source: "(83:0) {#if !hideBusses}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1$2.name, type: "if", source: "(87:0) {#if !hideBusses}", ctx });
     	return block;
     }
 
-    // (88:0) {#if !hideBusses}
+    // (92:0) {#if !hideBusses}
     function create_if_block$4(ctx) {
     	var updating_relevantBusStops, current;
 
@@ -2397,7 +2397,7 @@ var app = (function () {
     			destroy_component(busboard, detaching);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$4.name, type: "if", source: "(88:0) {#if !hideBusses}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$4.name, type: "if", source: "(92:0) {#if !hideBusses}", ctx });
     	return block;
     }
 
@@ -2493,11 +2493,11 @@ var app = (function () {
     			button = element("button");
     			t7 = text(t7_value);
     			attr_dev(div, "class", "relevant-stations svelte-112oy55");
-    			add_location(div, file$4, 66, 0, 2058);
-    			add_location(br, file$4, 91, 0, 2859);
+    			add_location(div, file$4, 70, 0, 2161);
+    			add_location(br, file$4, 95, 0, 2962);
     			attr_dev(button, "id", "hide-busses");
     			attr_dev(button, "class", "svelte-112oy55");
-    			add_location(button, file$4, 92, 0, 2864);
+    			add_location(button, file$4, 96, 0, 2967);
     			dispose = listen_dev(button, "click", ctx.click_handler_2);
     		},
 
@@ -2716,6 +2716,10 @@ var app = (function () {
 
       if (localStorage.getItem("hideBusses")) {
           $$invalidate('hideBusses', hideBusses = JSON.parse(localStorage.getItem("hideBusses")));
+      }
+      else {
+        $$invalidate('hideBusses', hideBusses = true);
+        localStorage.setItem("hideBusses", JSON.stringify(hideBusses));
       }
 
       const toggle = (station) => { 

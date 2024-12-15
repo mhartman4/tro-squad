@@ -3,10 +3,10 @@
   let allStations
   let query = ""
   let searchResults = []
-  let placeholder
-  export let relevantStations
+  let placeholder = "Add train stations"
+  export let relevantStations, hideBusses
   $: relevantStationNames = relevantStations.map(station => station.Name)
-  $: placeholder = relevantStations.length == 0 ? "Add stations" : ""
+  // $: placeholder = relevantStations.length == 0 ? "Add stations" : ""
   onMount(async () => {
     allStations = await getStations()
     searchResults = []
@@ -51,7 +51,7 @@
 
   
 </script>
-<input type="text" id="search" placeholder="🔍 {placeholder}" bind:value={query} on:input={searchStations}>
+<input type="text" id="search" placeholder="{hideBusses ? "" : "🚆"} {placeholder}" bind:value={query} on:input={searchStations}>
 <table>
 {#each searchResults as station}
     <tr class="station">

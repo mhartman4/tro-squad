@@ -44,5 +44,18 @@ def stations():
     return json.dumps(response["Stations"])
 
 
+@app.route("/bus_stops")
+def bus_stops():
+    response = json.loads(requests.get("http://api.wmata.com/Bus.svc/json/jStops", headers={"Cache-Control": "no-cache", 'api_key': wmata_api_key}).text)
+    return response["Stops"]
+
+@app.route("/bus_predictions/<stops>")
+def bus_predictions(stops):
+    predictions = {}
+    for stop in json.loads(stops):
+        response = json.loads(requests.get(f"http://api.wmata.com/NextBusService.svc/json/jPredictions?StopID={stop}", headers={"Cache-Control": "no-cache", 'api_key': wmata_api_key}).text)
+        predictions[stop] = response["Predictions"]
+    return predictions
+
 if __name__ == "__main__":
     app.run(debug=True)

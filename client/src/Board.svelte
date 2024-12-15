@@ -2,6 +2,7 @@
   import { onMount } from "svelte"
   let trainPredictions;
   export let relevantStationNames;
+  export let hideBusses
 
   onMount(async () => {
     trainPredictions = await getTrainPredictions()
@@ -15,7 +16,7 @@
 </script>
 {#if relevantStationNames}
   {#each relevantStationNames as station}
-    <h1 class="board-station">{station.length > 20 ? station.substring(0,20) : station}</h1>
+    <h1 class="board-station">{hideBusses ? "" : "🚆"} {station.length > 20 ? station.substring(0,20) : station}</h1>
     {#if trainPredictions}
       <table>
       {#each trainPredictions as train}

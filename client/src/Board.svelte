@@ -6,20 +6,20 @@
 
   onMount(async () => {
     getTrainPredictions()
-    setInterval(function(){
-      secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000)
-    }, 5000);
+    // setInterval(function(){
+    //   secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000)
+    // }, 5000);
   })
 
   const getTrainPredictions = async () => {
     const response = await fetch(`./train_predictions`)
     trainPredictions = await response.json()
-    updatedAt = await new Date()
-    secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000)
+    // updatedAt = await new Date()
+    // secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000)
   }
 
 </script>
-{secondsSinceLastUpdate} seconds since last update
+<!-- {secondsSinceLastUpdate} seconds since last update -->
 {#if relevantStationNames}
   {#each relevantStationNames as station}
     <h1 class="board-station">{hideBusses ? "" : "🚆"} {station.length > 20 ? station.substring(0,20) : station}</h1>

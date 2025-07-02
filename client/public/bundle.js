@@ -484,7 +484,7 @@ var app = (function () {
     			}
 
     			t = space();
-    			add_location(table, file, 26, 6, 873);
+    			add_location(table, file, 26, 6, 897);
     		},
 
     		m: function mount(target, anchor) {
@@ -550,12 +550,12 @@ var app = (function () {
     			td2 = element("td");
     			t4 = text(t4_value);
     			attr_dev(span, "class", span_class_value = "dot " + ctx.train.Line + " svelte-2n481f");
-    			add_location(span, file, 30, 16, 1044);
-    			add_location(td0, file, 30, 12, 1040);
-    			add_location(td1, file, 31, 12, 1100);
-    			add_location(td2, file, 32, 12, 1165);
+    			add_location(span, file, 30, 16, 1068);
+    			add_location(td0, file, 30, 12, 1064);
+    			add_location(td1, file, 31, 12, 1124);
+    			add_location(td2, file, 32, 12, 1189);
     			attr_dev(tr, "class", "train svelte-2n481f");
-    			add_location(tr, file, 29, 10, 1009);
+    			add_location(tr, file, 29, 10, 1033);
     		},
 
     		m: function mount(target, anchor) {
@@ -661,7 +661,7 @@ var app = (function () {
     			if_block.c();
     			if_block_anchor = empty();
     			attr_dev(h1, "class", "board-station svelte-2n481f");
-    			add_location(h1, file, 24, 4, 726);
+    			add_location(h1, file, 24, 4, 750);
     		},
 
     		m: function mount(target, anchor) {
@@ -713,14 +713,12 @@ var app = (function () {
     }
 
     function create_fragment(ctx) {
-    	var t0, t1, if_block_anchor;
+    	var if_block_anchor;
 
     	var if_block = (ctx.relevantStationNames) && create_if_block(ctx);
 
     	const block = {
     		c: function create() {
-    			t0 = text(ctx.secondsSinceLastUpdate);
-    			t1 = text(" seconds since last update\n");
     			if (if_block) if_block.c();
     			if_block_anchor = empty();
     		},
@@ -730,17 +728,11 @@ var app = (function () {
     		},
 
     		m: function mount(target, anchor) {
-    			insert_dev(target, t0, anchor);
-    			insert_dev(target, t1, anchor);
     			if (if_block) if_block.m(target, anchor);
     			insert_dev(target, if_block_anchor, anchor);
     		},
 
     		p: function update(changed, ctx) {
-    			if (changed.secondsSinceLastUpdate) {
-    				set_data_dev(t0, ctx.secondsSinceLastUpdate);
-    			}
-
     			if (ctx.relevantStationNames) {
     				if (if_block) {
     					if_block.p(changed, ctx);
@@ -759,11 +751,6 @@ var app = (function () {
     		o: noop,
 
     		d: function destroy(detaching) {
-    			if (detaching) {
-    				detach_dev(t0);
-    				detach_dev(t1);
-    			}
-
     			if (if_block) if_block.d(detaching);
 
     			if (detaching) {
@@ -781,16 +768,16 @@ var app = (function () {
 
       onMount(async () => {
         getTrainPredictions();
-        setInterval(function(){
-          $$invalidate('secondsSinceLastUpdate', secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000));
-        }, 5000);
+        // setInterval(function(){
+        //   secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000)
+        // }, 5000);
       });
 
       const getTrainPredictions = async () => {
         const response = await fetch(`./train_predictions`);
         $$invalidate('trainPredictions', trainPredictions = await response.json());
-        updatedAt = await new Date();
-        $$invalidate('secondsSinceLastUpdate', secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000));
+        // updatedAt = await new Date()
+        // secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000)
       };
 
     	const writable_props = ['relevantStationNames', 'hideBusses'];
@@ -809,7 +796,7 @@ var app = (function () {
 
     	$$self.$inject_state = $$props => {
     		if ('trainPredictions' in $$props) $$invalidate('trainPredictions', trainPredictions = $$props.trainPredictions);
-    		if ('secondsSinceLastUpdate' in $$props) $$invalidate('secondsSinceLastUpdate', secondsSinceLastUpdate = $$props.secondsSinceLastUpdate);
+    		if ('secondsSinceLastUpdate' in $$props) secondsSinceLastUpdate = $$props.secondsSinceLastUpdate;
     		if ('updatedAt' in $$props) updatedAt = $$props.updatedAt;
     		if ('relevantStationNames' in $$props) $$invalidate('relevantStationNames', relevantStationNames = $$props.relevantStationNames);
     		if ('hideBusses' in $$props) $$invalidate('hideBusses', hideBusses = $$props.hideBusses);
@@ -817,7 +804,6 @@ var app = (function () {
 
     	return {
     		trainPredictions,
-    		secondsSinceLastUpdate,
     		relevantStationNames,
     		hideBusses
     	};

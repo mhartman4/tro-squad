@@ -373,7 +373,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (17:0) {#if relevantStationNames}
+    // (23:0) {#if relevantStationNames}
     function create_if_block(ctx) {
     	var each_1_anchor;
 
@@ -434,11 +434,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block.name, type: "if", source: "(17:0) {#if relevantStationNames}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block.name, type: "if", source: "(23:0) {#if relevantStationNames}", ctx });
     	return block;
     }
 
-    // (32:4) {:else}
+    // (38:4) {:else}
     function create_else_block(ctx) {
     	var t;
 
@@ -459,11 +459,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block.name, type: "else", source: "(32:4) {:else}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block.name, type: "else", source: "(38:4) {:else}", ctx });
     	return block;
     }
 
-    // (20:4) {#if trainPredictions}
+    // (26:4) {#if trainPredictions}
     function create_if_block_1(ctx) {
     	var table, t;
 
@@ -484,7 +484,7 @@ var app = (function () {
     			}
 
     			t = space();
-    			add_location(table, file, 20, 6, 571);
+    			add_location(table, file, 26, 6, 873);
     		},
 
     		m: function mount(target, anchor) {
@@ -529,11 +529,11 @@ var app = (function () {
     			destroy_each(each_blocks, detaching);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1.name, type: "if", source: "(20:4) {#if trainPredictions}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1.name, type: "if", source: "(26:4) {#if trainPredictions}", ctx });
     	return block;
     }
 
-    // (23:8) {#if train.LocationName == station && train.Destination != "ssenger"}
+    // (29:8) {#if train.LocationName == station && train.Destination != "ssenger"}
     function create_if_block_2(ctx) {
     	var tr, td0, span, span_class_value, t0, td1, t1_value = ctx.train.Destination + "", t1, t2, t3, td2, t4_value = ctx.train.Min + "", t4;
 
@@ -550,12 +550,12 @@ var app = (function () {
     			td2 = element("td");
     			t4 = text(t4_value);
     			attr_dev(span, "class", span_class_value = "dot " + ctx.train.Line + " svelte-2n481f");
-    			add_location(span, file, 24, 16, 742);
-    			add_location(td0, file, 24, 12, 738);
-    			add_location(td1, file, 25, 12, 798);
-    			add_location(td2, file, 26, 12, 863);
+    			add_location(span, file, 30, 16, 1044);
+    			add_location(td0, file, 30, 12, 1040);
+    			add_location(td1, file, 31, 12, 1100);
+    			add_location(td2, file, 32, 12, 1165);
     			attr_dev(tr, "class", "train svelte-2n481f");
-    			add_location(tr, file, 23, 10, 707);
+    			add_location(tr, file, 29, 10, 1009);
     		},
 
     		m: function mount(target, anchor) {
@@ -591,11 +591,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2.name, type: "if", source: "(23:8) {#if train.LocationName == station && train.Destination != \"ssenger\"}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2.name, type: "if", source: "(29:8) {#if train.LocationName == station && train.Destination != \"ssenger\"}", ctx });
     	return block;
     }
 
-    // (22:6) {#each trainPredictions as train}
+    // (28:6) {#each trainPredictions as train}
     function create_each_block_1(ctx) {
     	var if_block_anchor;
 
@@ -635,11 +635,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1.name, type: "each", source: "(22:6) {#each trainPredictions as train}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1.name, type: "each", source: "(28:6) {#each trainPredictions as train}", ctx });
     	return block;
     }
 
-    // (18:2) {#each relevantStationNames as station}
+    // (24:2) {#each relevantStationNames as station}
     function create_each_block(ctx) {
     	var h1, t0_value = ctx.hideBusses ? "" : "🚆" + "", t0, t1, t2_value = ctx.station.length > 20 ? ctx.station.substring(0,20) : ctx.station + "", t2, t3, if_block_anchor;
 
@@ -661,7 +661,7 @@ var app = (function () {
     			if_block.c();
     			if_block_anchor = empty();
     			attr_dev(h1, "class", "board-station svelte-2n481f");
-    			add_location(h1, file, 18, 4, 424);
+    			add_location(h1, file, 24, 4, 726);
     		},
 
     		m: function mount(target, anchor) {
@@ -708,17 +708,19 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block.name, type: "each", source: "(18:2) {#each relevantStationNames as station}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block.name, type: "each", source: "(24:2) {#each relevantStationNames as station}", ctx });
     	return block;
     }
 
     function create_fragment(ctx) {
-    	var if_block_anchor;
+    	var t0, t1, if_block_anchor;
 
     	var if_block = (ctx.relevantStationNames) && create_if_block(ctx);
 
     	const block = {
     		c: function create() {
+    			t0 = text(ctx.secondsSinceLastUpdate);
+    			t1 = text(" seconds since last update\n");
     			if (if_block) if_block.c();
     			if_block_anchor = empty();
     		},
@@ -728,11 +730,17 @@ var app = (function () {
     		},
 
     		m: function mount(target, anchor) {
+    			insert_dev(target, t0, anchor);
+    			insert_dev(target, t1, anchor);
     			if (if_block) if_block.m(target, anchor);
     			insert_dev(target, if_block_anchor, anchor);
     		},
 
     		p: function update(changed, ctx) {
+    			if (changed.secondsSinceLastUpdate) {
+    				set_data_dev(t0, ctx.secondsSinceLastUpdate);
+    			}
+
     			if (ctx.relevantStationNames) {
     				if (if_block) {
     					if_block.p(changed, ctx);
@@ -751,6 +759,11 @@ var app = (function () {
     		o: noop,
 
     		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(t0);
+    				detach_dev(t1);
+    			}
+
     			if (if_block) if_block.d(detaching);
 
     			if (detaching) {
@@ -763,16 +776,21 @@ var app = (function () {
     }
 
     function instance($$self, $$props, $$invalidate) {
-    	let trainPredictions;
+    	let trainPredictions, secondsSinceLastUpdate, updatedAt;
       let { relevantStationNames, hideBusses } = $$props;
 
       onMount(async () => {
-        $$invalidate('trainPredictions', trainPredictions = await getTrainPredictions());
+        getTrainPredictions();
+        setInterval(function(){
+          $$invalidate('secondsSinceLastUpdate', secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000));
+        }, 5000);
       });
 
       const getTrainPredictions = async () => {
         const response = await fetch(`./train_predictions`);
-        return response.json()
+        $$invalidate('trainPredictions', trainPredictions = await response.json());
+        updatedAt = await new Date();
+        $$invalidate('secondsSinceLastUpdate', secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000));
       };
 
     	const writable_props = ['relevantStationNames', 'hideBusses'];
@@ -786,17 +804,20 @@ var app = (function () {
     	};
 
     	$$self.$capture_state = () => {
-    		return { trainPredictions, relevantStationNames, hideBusses };
+    		return { trainPredictions, secondsSinceLastUpdate, updatedAt, relevantStationNames, hideBusses };
     	};
 
     	$$self.$inject_state = $$props => {
     		if ('trainPredictions' in $$props) $$invalidate('trainPredictions', trainPredictions = $$props.trainPredictions);
+    		if ('secondsSinceLastUpdate' in $$props) $$invalidate('secondsSinceLastUpdate', secondsSinceLastUpdate = $$props.secondsSinceLastUpdate);
+    		if ('updatedAt' in $$props) updatedAt = $$props.updatedAt;
     		if ('relevantStationNames' in $$props) $$invalidate('relevantStationNames', relevantStationNames = $$props.relevantStationNames);
     		if ('hideBusses' in $$props) $$invalidate('hideBusses', hideBusses = $$props.hideBusses);
     	};
 
     	return {
     		trainPredictions,
+    		secondsSinceLastUpdate,
     		relevantStationNames,
     		hideBusses
     	};

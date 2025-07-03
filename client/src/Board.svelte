@@ -6,20 +6,30 @@
 
   onMount(async () => {
     getTrainPredictions()
-    // setInterval(function(){
-    //   secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000)
-    // }, 5000);
+    setInterval(function(){
+      secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000)
+      // if (secondsSinceLastUpdate >= 30) {
+      //   getTrainPredictions()
+      // }
+    }, 1000);
   })
 
   const getTrainPredictions = async () => {
     const response = await fetch(`./train_predictions`)
     trainPredictions = await response.json()
-    // updatedAt = await new Date()
-    // secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000)
+    updatedAt = await new Date()
+    secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000)
+  }
+
+  const refresh = () => {
+    trainPredictions = null
+    getTrainPredictions()
+    gtag('event', 'refresh', {})
   }
 
 </script>
-<!-- {secondsSinceLastUpdate} seconds since last update -->
+<a href="#" on:click={() => refresh() }>🔄</a>
+last updated {secondsSinceLastUpdate} seconds ago
 {#if relevantStationNames}
   {#each relevantStationNames as station}
     <h1 class="board-station">{hideBusses ? "" : "🚆"} {station.length > 20 ? station.substring(0,20) : station}</h1>
@@ -40,6 +50,8 @@
     {/if}
   {/each}
 {/if}
+
+
 
 <style>
   .board-station {

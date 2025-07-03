@@ -373,7 +373,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (23:0) {#if relevantStationNames}
+    // (33:0) {#if relevantStationNames}
     function create_if_block(ctx) {
     	var each_1_anchor;
 
@@ -434,11 +434,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block.name, type: "if", source: "(23:0) {#if relevantStationNames}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block.name, type: "if", source: "(33:0) {#if relevantStationNames}", ctx });
     	return block;
     }
 
-    // (38:4) {:else}
+    // (48:4) {:else}
     function create_else_block(ctx) {
     	var t;
 
@@ -459,11 +459,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block.name, type: "else", source: "(38:4) {:else}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block.name, type: "else", source: "(48:4) {:else}", ctx });
     	return block;
     }
 
-    // (26:4) {#if trainPredictions}
+    // (36:4) {#if trainPredictions}
     function create_if_block_1(ctx) {
     	var table, t;
 
@@ -484,7 +484,7 @@ var app = (function () {
     			}
 
     			t = space();
-    			add_location(table, file, 26, 6, 897);
+    			add_location(table, file, 36, 6, 1126);
     		},
 
     		m: function mount(target, anchor) {
@@ -529,11 +529,11 @@ var app = (function () {
     			destroy_each(each_blocks, detaching);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1.name, type: "if", source: "(26:4) {#if trainPredictions}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1.name, type: "if", source: "(36:4) {#if trainPredictions}", ctx });
     	return block;
     }
 
-    // (29:8) {#if train.LocationName == station && train.Destination != "ssenger"}
+    // (39:8) {#if train.LocationName == station && train.Destination != "ssenger"}
     function create_if_block_2(ctx) {
     	var tr, td0, span, span_class_value, t0, td1, t1_value = ctx.train.Destination + "", t1, t2, t3, td2, t4_value = ctx.train.Min + "", t4;
 
@@ -550,12 +550,12 @@ var app = (function () {
     			td2 = element("td");
     			t4 = text(t4_value);
     			attr_dev(span, "class", span_class_value = "dot " + ctx.train.Line + " svelte-2n481f");
-    			add_location(span, file, 30, 16, 1068);
-    			add_location(td0, file, 30, 12, 1064);
-    			add_location(td1, file, 31, 12, 1124);
-    			add_location(td2, file, 32, 12, 1189);
+    			add_location(span, file, 40, 16, 1297);
+    			add_location(td0, file, 40, 12, 1293);
+    			add_location(td1, file, 41, 12, 1353);
+    			add_location(td2, file, 42, 12, 1418);
     			attr_dev(tr, "class", "train svelte-2n481f");
-    			add_location(tr, file, 29, 10, 1033);
+    			add_location(tr, file, 39, 10, 1262);
     		},
 
     		m: function mount(target, anchor) {
@@ -591,11 +591,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2.name, type: "if", source: "(29:8) {#if train.LocationName == station && train.Destination != \"ssenger\"}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2.name, type: "if", source: "(39:8) {#if train.LocationName == station && train.Destination != \"ssenger\"}", ctx });
     	return block;
     }
 
-    // (28:6) {#each trainPredictions as train}
+    // (38:6) {#each trainPredictions as train}
     function create_each_block_1(ctx) {
     	var if_block_anchor;
 
@@ -635,11 +635,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1.name, type: "each", source: "(28:6) {#each trainPredictions as train}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1.name, type: "each", source: "(38:6) {#each trainPredictions as train}", ctx });
     	return block;
     }
 
-    // (24:2) {#each relevantStationNames as station}
+    // (34:2) {#each relevantStationNames as station}
     function create_each_block(ctx) {
     	var h1, t0_value = ctx.hideBusses ? "" : "🚆" + "", t0, t1, t2_value = ctx.station.length > 20 ? ctx.station.substring(0,20) : ctx.station + "", t2, t3, if_block_anchor;
 
@@ -661,7 +661,7 @@ var app = (function () {
     			if_block.c();
     			if_block_anchor = empty();
     			attr_dev(h1, "class", "board-station svelte-2n481f");
-    			add_location(h1, file, 24, 4, 750);
+    			add_location(h1, file, 34, 4, 979);
     		},
 
     		m: function mount(target, anchor) {
@@ -708,19 +708,27 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block.name, type: "each", source: "(24:2) {#each relevantStationNames as station}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block.name, type: "each", source: "(34:2) {#each relevantStationNames as station}", ctx });
     	return block;
     }
 
     function create_fragment(ctx) {
-    	var if_block_anchor;
+    	var a, t1, t2, t3, if_block_anchor, dispose;
 
     	var if_block = (ctx.relevantStationNames) && create_if_block(ctx);
 
     	const block = {
     		c: function create() {
+    			a = element("a");
+    			a.textContent = "🔄";
+    			t1 = text("\nlast updated ");
+    			t2 = text(ctx.secondsSinceLastUpdate);
+    			t3 = text(" seconds ago\n");
     			if (if_block) if_block.c();
     			if_block_anchor = empty();
+    			attr_dev(a, "href", "#");
+    			add_location(a, file, 30, 0, 809);
+    			dispose = listen_dev(a, "click", ctx.click_handler);
     		},
 
     		l: function claim(nodes) {
@@ -728,11 +736,19 @@ var app = (function () {
     		},
 
     		m: function mount(target, anchor) {
+    			insert_dev(target, a, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, t2, anchor);
+    			insert_dev(target, t3, anchor);
     			if (if_block) if_block.m(target, anchor);
     			insert_dev(target, if_block_anchor, anchor);
     		},
 
     		p: function update(changed, ctx) {
+    			if (changed.secondsSinceLastUpdate) {
+    				set_data_dev(t2, ctx.secondsSinceLastUpdate);
+    			}
+
     			if (ctx.relevantStationNames) {
     				if (if_block) {
     					if_block.p(changed, ctx);
@@ -751,11 +767,20 @@ var app = (function () {
     		o: noop,
 
     		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(a);
+    				detach_dev(t1);
+    				detach_dev(t2);
+    				detach_dev(t3);
+    			}
+
     			if (if_block) if_block.d(detaching);
 
     			if (detaching) {
     				detach_dev(if_block_anchor);
     			}
+
+    			dispose();
     		}
     	};
     	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment.name, type: "component", source: "", ctx });
@@ -768,22 +793,33 @@ var app = (function () {
 
       onMount(async () => {
         getTrainPredictions();
-        // setInterval(function(){
-        //   secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000)
-        // }, 5000);
+        setInterval(function(){
+          $$invalidate('secondsSinceLastUpdate', secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000));
+          // if (secondsSinceLastUpdate >= 30) {
+          //   getTrainPredictions()
+          // }
+        }, 1000);
       });
 
       const getTrainPredictions = async () => {
         const response = await fetch(`./train_predictions`);
         $$invalidate('trainPredictions', trainPredictions = await response.json());
-        // updatedAt = await new Date()
-        // secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000)
+        updatedAt = await new Date();
+        $$invalidate('secondsSinceLastUpdate', secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000));
+      };
+
+      const refresh = () => {
+        $$invalidate('trainPredictions', trainPredictions = null);
+        getTrainPredictions();
+        gtag('event', 'refresh', {});
       };
 
     	const writable_props = ['relevantStationNames', 'hideBusses'];
     	Object.keys($$props).forEach(key => {
     		if (!writable_props.includes(key) && !key.startsWith('$$')) console.warn(`<Board> was created with unknown prop '${key}'`);
     	});
+
+    	const click_handler = () => refresh();
 
     	$$self.$set = $$props => {
     		if ('relevantStationNames' in $$props) $$invalidate('relevantStationNames', relevantStationNames = $$props.relevantStationNames);
@@ -796,7 +832,7 @@ var app = (function () {
 
     	$$self.$inject_state = $$props => {
     		if ('trainPredictions' in $$props) $$invalidate('trainPredictions', trainPredictions = $$props.trainPredictions);
-    		if ('secondsSinceLastUpdate' in $$props) secondsSinceLastUpdate = $$props.secondsSinceLastUpdate;
+    		if ('secondsSinceLastUpdate' in $$props) $$invalidate('secondsSinceLastUpdate', secondsSinceLastUpdate = $$props.secondsSinceLastUpdate);
     		if ('updatedAt' in $$props) updatedAt = $$props.updatedAt;
     		if ('relevantStationNames' in $$props) $$invalidate('relevantStationNames', relevantStationNames = $$props.relevantStationNames);
     		if ('hideBusses' in $$props) $$invalidate('hideBusses', hideBusses = $$props.hideBusses);
@@ -804,8 +840,11 @@ var app = (function () {
 
     	return {
     		trainPredictions,
+    		secondsSinceLastUpdate,
     		relevantStationNames,
-    		hideBusses
+    		hideBusses,
+    		refresh,
+    		click_handler
     	};
     }
 

@@ -484,7 +484,7 @@ var app = (function () {
     			}
 
     			t = space();
-    			add_location(table, file, 35, 6, 1095);
+    			add_location(table, file, 35, 6, 1075);
     		},
 
     		m: function mount(target, anchor) {
@@ -550,12 +550,12 @@ var app = (function () {
     			td2 = element("td");
     			t4 = text(t4_value);
     			attr_dev(span, "class", span_class_value = "dot " + ctx.train.Line + " svelte-2n481f");
-    			add_location(span, file, 39, 16, 1266);
-    			add_location(td0, file, 39, 12, 1262);
-    			add_location(td1, file, 40, 12, 1322);
-    			add_location(td2, file, 41, 12, 1387);
+    			add_location(span, file, 39, 16, 1246);
+    			add_location(td0, file, 39, 12, 1242);
+    			add_location(td1, file, 40, 12, 1302);
+    			add_location(td2, file, 41, 12, 1367);
     			attr_dev(tr, "class", "train svelte-2n481f");
-    			add_location(tr, file, 38, 10, 1231);
+    			add_location(tr, file, 38, 10, 1211);
     		},
 
     		m: function mount(target, anchor) {
@@ -661,7 +661,7 @@ var app = (function () {
     			if_block.c();
     			if_block_anchor = empty();
     			attr_dev(h1, "class", "board-station svelte-2n481f");
-    			add_location(h1, file, 33, 4, 948);
+    			add_location(h1, file, 33, 4, 928);
     		},
 
     		m: function mount(target, anchor) {
@@ -727,7 +727,7 @@ var app = (function () {
     			if (if_block) if_block.c();
     			if_block_anchor = empty();
     			attr_dev(a, "href", "#");
-    			add_location(a, file, 29, 0, 778);
+    			add_location(a, file, 29, 0, 758);
     			dispose = listen_dev(a, "click", ctx.click_handler);
     		},
 
@@ -795,9 +795,9 @@ var app = (function () {
         getTrainPredictions();
         setInterval(function(){
           $$invalidate('secondsSinceLastUpdate', secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000));
-          // if (secondsSinceLastUpdate >= 30) {
-          //   getTrainPredictions()
-          // }
+          if (secondsSinceLastUpdate >= 120) {
+            refresh();
+          }
         }, 1000);
       });
 

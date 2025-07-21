@@ -8,9 +8,9 @@
     getTrainPredictions()
     setInterval(function(){
       secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000)
-      // if (secondsSinceLastUpdate >= 30) {
-      //   getTrainPredictions()
-      // }
+      if (secondsSinceLastUpdate >= 120) {
+        refresh()
+      }
     }, 1000);
   })
 

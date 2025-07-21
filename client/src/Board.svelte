@@ -22,9 +22,8 @@
   }
 
   const refresh = () => {
-    trainPredictions = null
-    getTrainPredictions()
     gtag('event', 'refresh', {})
+    location.reload();
   }
 
 </script>

@@ -1749,7 +1749,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			t = text(t_value);
-    			attr_dev(span, "class", "route svelte-13wfgbt");
+    			attr_dev(span, "class", "route svelte-mqlmva");
     			add_location(span, file$3, 239, 16, 7209);
     		},
 
@@ -1855,20 +1855,20 @@ var app = (function () {
     			}
 
     			t4 = space();
-    			attr_dev(span0, "class", "svelte-13wfgbt");
+    			attr_dev(span0, "class", "svelte-mqlmva");
     			add_location(span0, file$3, 232, 10, 6943);
-    			attr_dev(span1, "class", "stop-id svelte-13wfgbt");
+    			attr_dev(span1, "class", "stop-id svelte-mqlmva");
     			add_location(span1, file$3, 234, 12, 6996);
-    			attr_dev(div0, "class", "svelte-13wfgbt");
+    			attr_dev(div0, "class", "svelte-mqlmva");
     			add_location(div0, file$3, 233, 10, 6978);
-    			attr_dev(div1, "class", "routes svelte-13wfgbt");
+    			attr_dev(div1, "class", "routes svelte-mqlmva");
     			add_location(div1, file$3, 236, 10, 7066);
-    			attr_dev(button, "class", button_class_value = "stop-result " + (ctx.relevantBusStopSet.has(ctx.stop.Name + " (" + ctx.stop.StopID + ")") ? "is-relevant" : "") + " svelte-13wfgbt");
+    			attr_dev(button, "class", button_class_value = "stop-result " + (ctx.relevantBusStopSet.has(ctx.stop.Name + " (" + ctx.stop.StopID + ")") ? "is-relevant" : "") + " svelte-mqlmva");
     			attr_dev(button, "autocomplete", "off");
     			add_location(button, file$3, 231, 8, 6771);
-    			attr_dev(td, "class", "svelte-13wfgbt");
+    			attr_dev(td, "class", "svelte-mqlmva");
     			add_location(td, file$3, 230, 6, 6758);
-    			attr_dev(tr, "class", "stop svelte-13wfgbt");
+    			attr_dev(tr, "class", "stop svelte-mqlmva");
     			add_location(tr, file$3, 229, 4, 6734);
     			dispose = listen_dev(button, "click", click_handler);
     		},
@@ -1925,7 +1925,7 @@ var app = (function () {
     				each_blocks.length = each_value_1.length;
     			}
 
-    			if ((changed.relevantBusStopSet || changed.searchResults) && button_class_value !== (button_class_value = "stop-result " + (ctx.relevantBusStopSet.has(ctx.stop.Name + " (" + ctx.stop.StopID + ")") ? "is-relevant" : "") + " svelte-13wfgbt")) {
+    			if ((changed.relevantBusStopSet || changed.searchResults) && button_class_value !== (button_class_value = "stop-result " + (ctx.relevantBusStopSet.has(ctx.stop.Name + " (" + ctx.stop.StopID + ")") ? "is-relevant" : "") + " svelte-mqlmva")) {
     				attr_dev(button, "class", button_class_value);
     			}
     		},
@@ -1967,9 +1967,9 @@ var app = (function () {
     			attr_dev(input, "type", "text");
     			attr_dev(input, "id", "search");
     			attr_dev(input, "placeholder", "🚌 " + placeholder$1);
-    			attr_dev(input, "class", "svelte-13wfgbt");
+    			attr_dev(input, "class", "svelte-mqlmva");
     			add_location(input, file$3, 226, 0, 6610);
-    			attr_dev(table, "class", "svelte-13wfgbt");
+    			attr_dev(table, "class", "svelte-mqlmva");
     			add_location(table, file$3, 227, 0, 6692);
     			dispose = listen_dev(input, "input", ctx.input_input_handler);
     		},

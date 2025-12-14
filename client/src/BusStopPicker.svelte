@@ -294,5 +294,15 @@
   }
   .stop-result {
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 4px;
+  }
+  .routes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
   }
 </style>

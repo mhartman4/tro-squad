@@ -484,7 +484,7 @@ var app = (function () {
     			}
 
     			t = space();
-    			add_location(table, file, 35, 6, 1075);
+    			add_location(table, file, 35, 6, 1074);
     		},
 
     		m: function mount(target, anchor) {
@@ -550,12 +550,12 @@ var app = (function () {
     			td2 = element("td");
     			t4 = text(t4_value);
     			attr_dev(span, "class", span_class_value = "dot " + ctx.train.Line + " svelte-2n481f");
-    			add_location(span, file, 39, 16, 1246);
-    			add_location(td0, file, 39, 12, 1242);
-    			add_location(td1, file, 40, 12, 1302);
-    			add_location(td2, file, 41, 12, 1367);
+    			add_location(span, file, 39, 16, 1245);
+    			add_location(td0, file, 39, 12, 1241);
+    			add_location(td1, file, 40, 12, 1301);
+    			add_location(td2, file, 41, 12, 1366);
     			attr_dev(tr, "class", "train svelte-2n481f");
-    			add_location(tr, file, 38, 10, 1211);
+    			add_location(tr, file, 38, 10, 1210);
     		},
 
     		m: function mount(target, anchor) {
@@ -661,7 +661,7 @@ var app = (function () {
     			if_block.c();
     			if_block_anchor = empty();
     			attr_dev(h1, "class", "board-station svelte-2n481f");
-    			add_location(h1, file, 33, 4, 928);
+    			add_location(h1, file, 33, 4, 927);
     		},
 
     		m: function mount(target, anchor) {
@@ -727,7 +727,7 @@ var app = (function () {
     			if (if_block) if_block.c();
     			if_block_anchor = empty();
     			attr_dev(a, "href", "#");
-    			add_location(a, file, 29, 0, 758);
+    			add_location(a, file, 29, 0, 757);
     			dispose = listen_dev(a, "click", ctx.click_handler);
     		},
 
@@ -795,7 +795,7 @@ var app = (function () {
         getTrainPredictions();
         setInterval(function(){
           $$invalidate('secondsSinceLastUpdate', secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000));
-          if (secondsSinceLastUpdate >= 120) {
+          if (secondsSinceLastUpdate >= 45) {
             refresh();
           }
         }, 1000);
@@ -1741,7 +1741,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (72:14) {#if !route.includes("*") && !route.includes("/")}
+    // (239:14) {#if !route.includes("*") && !route.includes("/")}
     function create_if_block$3(ctx) {
     	var span, t_value = ctx.route + "", t;
 
@@ -1750,7 +1750,7 @@ var app = (function () {
     			span = element("span");
     			t = text(t_value);
     			attr_dev(span, "class", "route svelte-13wfgbt");
-    			add_location(span, file$3, 72, 16, 2172);
+    			add_location(span, file$3, 239, 16, 7209);
     		},
 
     		m: function mount(target, anchor) {
@@ -1770,11 +1770,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$3.name, type: "if", source: "(72:14) {#if !route.includes(\"*\") && !route.includes(\"/\")}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$3.name, type: "if", source: "(239:14) {#if !route.includes(\"*\") && !route.includes(\"/\")}", ctx });
     	return block;
     }
 
-    // (71:12) {#each stop.Routes as route}
+    // (238:12) {#each stop.Routes as route}
     function create_each_block_1$3(ctx) {
     	var show_if = !ctx.route.includes("*") && !ctx.route.includes("/"), if_block_anchor;
 
@@ -1816,11 +1816,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$3.name, type: "each", source: "(71:12) {#each stop.Routes as route}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$3.name, type: "each", source: "(238:12) {#each stop.Routes as route}", ctx });
     	return block;
     }
 
-    // (62:0) {#each searchResults as stop}
+    // (229:0) {#each searchResults as stop}
     function create_each_block$3(ctx) {
     	var tr, td, button, span0, t0_value = ctx.stop.Name + "", t0, t1, div0, span1, t2_value = ctx.stop.StopID + "", t2, t3, div1, button_class_value, t4, dispose;
 
@@ -1856,20 +1856,20 @@ var app = (function () {
 
     			t4 = space();
     			attr_dev(span0, "class", "svelte-13wfgbt");
-    			add_location(span0, file$3, 65, 10, 1906);
+    			add_location(span0, file$3, 232, 10, 6943);
     			attr_dev(span1, "class", "stop-id svelte-13wfgbt");
-    			add_location(span1, file$3, 67, 12, 1959);
+    			add_location(span1, file$3, 234, 12, 6996);
     			attr_dev(div0, "class", "svelte-13wfgbt");
-    			add_location(div0, file$3, 66, 10, 1941);
+    			add_location(div0, file$3, 233, 10, 6978);
     			attr_dev(div1, "class", "routes svelte-13wfgbt");
-    			add_location(div1, file$3, 69, 10, 2029);
-    			attr_dev(button, "class", button_class_value = "stop-result " + (ctx.relevantBusStopNames.indexOf(ctx.stop.Name) > -1 ? "is-relevant" : "") + " svelte-13wfgbt");
+    			add_location(div1, file$3, 236, 10, 7066);
+    			attr_dev(button, "class", button_class_value = "stop-result " + (ctx.relevantBusStopSet.has(ctx.stop.Name + " (" + ctx.stop.StopID + ")") ? "is-relevant" : "") + " svelte-13wfgbt");
     			attr_dev(button, "autocomplete", "off");
-    			add_location(button, file$3, 64, 8, 1750);
+    			add_location(button, file$3, 231, 8, 6771);
     			attr_dev(td, "class", "svelte-13wfgbt");
-    			add_location(td, file$3, 63, 6, 1737);
+    			add_location(td, file$3, 230, 6, 6758);
     			attr_dev(tr, "class", "stop svelte-13wfgbt");
-    			add_location(tr, file$3, 62, 4, 1713);
+    			add_location(tr, file$3, 229, 4, 6734);
     			dispose = listen_dev(button, "click", click_handler);
     		},
 
@@ -1925,7 +1925,7 @@ var app = (function () {
     				each_blocks.length = each_value_1.length;
     			}
 
-    			if ((changed.relevantBusStopNames || changed.searchResults) && button_class_value !== (button_class_value = "stop-result " + (ctx.relevantBusStopNames.indexOf(ctx.stop.Name) > -1 ? "is-relevant" : "") + " svelte-13wfgbt")) {
+    			if ((changed.relevantBusStopSet || changed.searchResults) && button_class_value !== (button_class_value = "stop-result " + (ctx.relevantBusStopSet.has(ctx.stop.Name + " (" + ctx.stop.StopID + ")") ? "is-relevant" : "") + " svelte-13wfgbt")) {
     				attr_dev(button, "class", button_class_value);
     			}
     		},
@@ -1940,7 +1940,7 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$3.name, type: "each", source: "(62:0) {#each searchResults as stop}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$3.name, type: "each", source: "(229:0) {#each searchResults as stop}", ctx });
     	return block;
     }
 
@@ -1968,14 +1968,10 @@ var app = (function () {
     			attr_dev(input, "id", "search");
     			attr_dev(input, "placeholder", "🚌 " + placeholder$1);
     			attr_dev(input, "class", "svelte-13wfgbt");
-    			add_location(input, file$3, 59, 0, 1563);
+    			add_location(input, file$3, 226, 0, 6610);
     			attr_dev(table, "class", "svelte-13wfgbt");
-    			add_location(table, file$3, 60, 0, 1671);
-
-    			dispose = [
-    				listen_dev(input, "input", ctx.input_input_handler),
-    				listen_dev(input, "input", ctx.searchBusStops)
-    			];
+    			add_location(table, file$3, 227, 0, 6692);
+    			dispose = listen_dev(input, "input", ctx.input_input_handler);
     		},
 
     		l: function claim(nodes) {
@@ -1998,7 +1994,7 @@ var app = (function () {
     		p: function update(changed, ctx) {
     			if (changed.query && (input.value !== ctx.query)) set_input_value(input, ctx.query);
 
-    			if (changed.relevantBusStopNames || changed.searchResults) {
+    			if (changed.relevantBusStopSet || changed.searchResults) {
     				each_value = ctx.searchResults;
 
     				let i;
@@ -2033,7 +2029,7 @@ var app = (function () {
 
     			destroy_each(each_blocks, detaching);
 
-    			run_all(dispose);
+    			dispose();
     		}
     	};
     	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$3.name, type: "component", source: "", ctx });
@@ -2045,15 +2041,18 @@ var app = (function () {
     function instance$3($$self, $$props, $$invalidate) {
     	let allBusStops;
       let query = "";
+      let debouncedQuery = "";
       let searchResults = [];
       let busPredictions;
       let { relevantBusStops } = $$props;
-      // $: console.log(searchResults)
+      let relevantBusStopSet = new Set();
+      
+      // Debounce query updates
+      let debounceTimer;
       
       onMount(async () => {
-        allBusStops = await getBusStops();
+        $$invalidate('allBusStops', allBusStops = await getBusStops());
         $$invalidate('searchResults', searchResults = []);
-
       });
 
       const getBusStops = async () => {
@@ -2065,22 +2064,150 @@ var app = (function () {
         return stops
       };
 
-      const searchBusStops = () => {
-        if (query == "") {
-          return $$invalidate('searchResults', searchResults = [])
-        }
-        else {
-          return $$invalidate('searchResults', searchResults = allBusStops.filter(stop => {
-            gtag('event', 'busStopSearch', {"query": query});
-            return stop.stopNameForSearch.includes(query.toLowerCase().replace("'", ""))
-          }))
-        } 
+      // Normalize query once
+      const normalizeQuery = (q) => {
+        return q.toLowerCase().replace("'", "")
+      };
+
+      // Check if all query characters appear in order (fuzzy match)
+      const fuzzyMatch = (text, query) => {
+        let textIndex = 0;
+        let queryIndex = 0;
         
+        while (textIndex < text.length && queryIndex < query.length) {
+          if (text[textIndex] === query[queryIndex]) {
+            queryIndex++;
+          }
+          textIndex++;
+        }
+        
+        return queryIndex === query.length
+      };
+
+      // Check if all words in query appear in text (word-order independent)
+      const wordOrderIndependentMatch = (text, query) => {
+        const queryWords = query.trim().split(/\s+/).filter(w => w.length > 0);
+        if (queryWords.length === 0) return false
+        
+        // Check if all words appear somewhere in the text
+        return queryWords.every(word => {
+          // Try exact word match first
+          if (text.includes(word)) return true
+          // Fall back to fuzzy character-in-order match for each word
+          return fuzzyMatch(text, word)
+        })
+      };
+
+      // Calculate simple edit distance for typo handling (only for short queries)
+      const simpleEditDistance = (text, query) => {
+        if (query.length > 10) return Infinity // Skip for long queries to keep it fast
+        
+        const m = text.length;
+        const n = query.length;
+        const dp = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
+        
+        for (let i = 0; i <= m; i++) dp[i][0] = i;
+        for (let j = 0; j <= n; j++) dp[0][j] = j;
+        
+        for (let i = 1; i <= m; i++) {
+          for (let j = 1; j <= n; j++) {
+            if (text[i - 1] === query[j - 1]) {
+              dp[i][j] = dp[i - 1][j - 1];
+            } else {
+              dp[i][j] = 1 + Math.min(
+                dp[i - 1][j],     // deletion
+                dp[i][j - 1],     // insertion
+                dp[i - 1][j - 1]  // substitution
+              );
+            }
+          }
+        }
+        
+        return dp[m][n]
+      };
+
+      // Score a match: higher is better
+      const scoreMatch = (stop, normalizedQuery) => {
+        const searchText = stop.stopNameForSearch;
+        
+        // Tier 1: Exact substring match (highest priority)
+        if (searchText.includes(normalizedQuery)) {
+          // Bonus for matches at the start
+          if (searchText.startsWith(normalizedQuery)) {
+            return 100
+          }
+          return 90
+        }
+        
+        // Tier 1.5: Word-order independent match (all words present, any order)
+        if (wordOrderIndependentMatch(searchText, normalizedQuery)) {
+          // Score based on word positions and how close they are
+          const queryWords = normalizedQuery.trim().split(/\s+/).filter(w => w.length > 0);
+          let score = 80;
+          
+          // Bonus if words appear in the same order as query
+          let lastIndex = -1;
+          let wordsInOrder = true;
+          for (const word of queryWords) {
+            const index = searchText.indexOf(word);
+            if (index === -1) {
+              wordsInOrder = false;
+              break
+            }
+            if (index < lastIndex) {
+              wordsInOrder = false;
+              break
+            }
+            lastIndex = index;
+          }
+          
+          if (wordsInOrder) {
+            score = 85; // Slight bonus for words in order
+          }
+          
+          return score
+        }
+        
+        // Tier 2: Fuzzy match (characters in order)
+        if (fuzzyMatch(searchText, normalizedQuery)) {
+          // Score based on how close the match is (fewer gaps = higher score)
+          let score = 70;
+          let textIndex = 0;
+          let queryIndex = 0;
+          let gaps = 0;
+          
+          while (textIndex < searchText.length && queryIndex < normalizedQuery.length) {
+            if (searchText[textIndex] === normalizedQuery[queryIndex]) {
+              queryIndex++;
+            } else {
+              gaps++;
+            }
+            textIndex++;
+          }
+          
+          // Reduce score based on gaps (but keep it above typo scores)
+          score = Math.max(50, score - Math.min(gaps * 2, 20));
+          return score
+        }
+        
+        // Tier 3: Typo handling (edit distance) - only for short queries
+        if (normalizedQuery.length <= 10) {
+          const distance = simpleEditDistance(searchText, normalizedQuery);
+          const maxDistance = Math.floor(normalizedQuery.length / 3); // Allow ~33% errors
+          
+          if (distance <= maxDistance) {
+            // Score inversely proportional to distance
+            return Math.max(10, 40 - (distance * 5))
+          }
+        }
+        
+        return 0 // No match
       };
 
       const toggle = (stop) => { 
         if (relevantBusStops && stop) {
-          let i = relevantBusStopNames.indexOf(stop.Name + " (" + stop.StopID + ")");
+          const stopKey = stop.Name + " (" + stop.StopID + ")";
+          let i = relevantBusStops.findIndex(s => s.Name + " (" + s.StopID + ")" === stopKey);
           if (i > -1) {
             $$invalidate('relevantBusStops', relevantBusStops = [...relevantBusStops.slice(0, i), ...relevantBusStops.slice(i + 1)]);
           }
@@ -2091,7 +2218,6 @@ var app = (function () {
           gtag('event', 'addBusStop', {"stop": stop});
         }
         $$invalidate('query', query = "");
-        searchBusStops();
       };
 
     	const writable_props = ['relevantBusStops'];
@@ -2111,32 +2237,64 @@ var app = (function () {
     	};
 
     	$$self.$capture_state = () => {
-    		return { allBusStops, query, searchResults, placeholder: placeholder$1, busPredictions, relevantBusStops, relevantBusStopNames };
+    		return { allBusStops, query, debouncedQuery, searchResults, placeholder: placeholder$1, busPredictions, relevantBusStops, relevantBusStopSet, debounceTimer };
     	};
 
     	$$self.$inject_state = $$props => {
-    		if ('allBusStops' in $$props) allBusStops = $$props.allBusStops;
+    		if ('allBusStops' in $$props) $$invalidate('allBusStops', allBusStops = $$props.allBusStops);
     		if ('query' in $$props) $$invalidate('query', query = $$props.query);
+    		if ('debouncedQuery' in $$props) $$invalidate('debouncedQuery', debouncedQuery = $$props.debouncedQuery);
     		if ('searchResults' in $$props) $$invalidate('searchResults', searchResults = $$props.searchResults);
     		if ('placeholder' in $$props) $$invalidate('placeholder', placeholder$1 = $$props.placeholder);
     		if ('busPredictions' in $$props) busPredictions = $$props.busPredictions;
     		if ('relevantBusStops' in $$props) $$invalidate('relevantBusStops', relevantBusStops = $$props.relevantBusStops);
-    		if ('relevantBusStopNames' in $$props) $$invalidate('relevantBusStopNames', relevantBusStopNames = $$props.relevantBusStopNames);
+    		if ('relevantBusStopSet' in $$props) $$invalidate('relevantBusStopSet', relevantBusStopSet = $$props.relevantBusStopSet);
+    		if ('debounceTimer' in $$props) $$invalidate('debounceTimer', debounceTimer = $$props.debounceTimer);
     	};
 
-    	let relevantBusStopNames;
-
-    	$$self.$$.update = ($$dirty = { relevantBusStops: 1 }) => {
-    		if ($$dirty.relevantBusStops) { $$invalidate('relevantBusStopNames', relevantBusStopNames = relevantBusStops.map(stop => stop.Name + " (" + stop.StopID + ")")); }
+    	$$self.$$.update = ($$dirty = { debounceTimer: 1, query: 1, relevantBusStops: 1, debouncedQuery: 1, allBusStops: 1 }) => {
+    		if ($$dirty.debounceTimer || $$dirty.query) { {
+            clearTimeout(debounceTimer);
+            $$invalidate('debounceTimer', debounceTimer = setTimeout(() => {
+              $$invalidate('debouncedQuery', debouncedQuery = query);
+            }, 150));
+          } }
+    		if ($$dirty.relevantBusStops) { $$invalidate('relevantBusStopSet', relevantBusStopSet = new Set(
+            relevantBusStops.map(stop => stop.Name + " (" + stop.StopID + ")")
+          )); }
+    		if ($$dirty.debouncedQuery || $$dirty.allBusStops) { {
+            if (debouncedQuery === "") {
+              $$invalidate('searchResults', searchResults = []);
+            } else {
+              const normalizedQuery = normalizeQuery(debouncedQuery);
+              
+              // Track search event once (not per item)
+              if (normalizedQuery.length > 0) {
+                gtag('event', 'busStopSearch', {"query": debouncedQuery});
+              }
+              
+              // Score and filter all stops
+              const scoredResults = allBusStops
+                .map(stop => ({
+                  stop,
+                  score: scoreMatch(stop, normalizedQuery)
+                }))
+                .filter(item => item.score > 0)
+                .sort((a, b) => b.score - a.score) // Sort by score descending
+                .slice(0, 50) // Limit to top 50 results
+                .map(item => item.stop); // Extract just the stops
+              
+              $$invalidate('searchResults', searchResults = scoredResults);
+            }
+          } }
     	};
 
     	return {
     		query,
     		searchResults,
     		relevantBusStops,
-    		searchBusStops,
+    		relevantBusStopSet,
     		toggle,
-    		relevantBusStopNames,
     		input_input_handler,
     		click_handler
     	};

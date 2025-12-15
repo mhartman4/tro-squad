@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte"
   import Board from "./Board.svelte"
   import BusBoard from "./BusBoard.svelte"
   import StationPicker from "./StationPicker.svelte"
@@ -7,6 +8,8 @@
   let relevantStations = []
   let relevantStationNames = ""
   let relevantBusStops = []
+  let relevantRailLines = []
+  let incidents = []
 
   let hideBusses
   let showMapModal = false
@@ -14,6 +17,9 @@
   let mapInstance = null
   let stationSearching = false
   let busSearching = false
+  let showIncidentModal = false
+  let selectedIncidents = []
+  let selectedLine = null
   
   // Marker management state
   let stopMarkersLayer = null
@@ -40,7 +46,26 @@
   }
   
   $: relevantStationNames = relevantStations.map(station => station.Name)
+  $: relevantRailLines = [...new Set(
+    relevantStations.flatMap(station => station.Lines || [])
+  )]
   $: relevantBusStops = relevantBusStops
+  
+  // Extract all unique lines from all incidents
+  $: linesWithIncidents = [...new Set(
+    incidents
+      .filter(incident => {
+        const linesAffected = incident.LinesAffected || incident.linesAffected || incident['Lines Affected']
+        return linesAffected && linesAffected.trim()
+      })
+      .flatMap(incident => {
+        const linesAffected = incident.LinesAffected || incident.linesAffected || incident['Lines Affected']
+        // Parse LinesAffected - could be "RD;" or "RD;BL;"
+        return linesAffected.split(';')
+          .map(l => l.trim())
+          .filter(l => l)
+      })
+  )]
   
   // Update map popups when relevantBusStops changes (only if map is already initialized)
   $: if (mapInstance && mapData && showMapModal) {
@@ -54,6 +79,84 @@
     setTimeout(() => {
       initMap()
     }, 200)
+  }
+
+  onMount(async () => {
+    const response = await fetch('./incidents')
+    incidents = await response.json()
+    console.log('Incidents loaded:', incidents)
+    if (incidents.length > 0) {
+      console.log('First incident:', incidents[0])
+      console.log('LinesAffected property:', incidents[0].LinesAffected)
+    }
+  })
+
+  const hasIncidents = (line) => {
+    if (!incidents || incidents.length === 0) {
+      console.log(`hasIncidents(${line}): no incidents`)
+      return false
+    }
+    const result = incidents.some(incident => {
+      const linesAffected = incident.LinesAffected || incident.linesAffected || incident['Lines Affected']
+      if (!linesAffected) return false
+      const includes = linesAffected.includes(line)
+      if (includes) {
+        console.log(`hasIncidents(${line}): found match in "${linesAffected}"`)
+      }
+      return includes
+    })
+    console.log(`hasIncidents(${line}): returning ${result}`)
+    return result
+  }
+
+  const getIncidentsForLine = (line) => {
+    if (!incidents || incidents.length === 0) return []
+    return incidents.filter(incident => {
+      const linesAffected = incident.LinesAffected || incident.linesAffected || incident['Lines Affected']
+      if (!linesAffected) return false
+      return linesAffected.includes(line)
+    })
+  }
+
+  const showIncidents = (line) => {
+    selectedLine = line
+    selectedIncidents = getIncidentsForLine(line)
+    showIncidentModal = true
+  }
+
+  const closeIncidentModal = () => {
+    showIncidentModal = false
+    selectedIncidents = []
+    selectedLine = null
+  }
+
+  const linkifyDescription = (text) => {
+    if (!text) return ''
+    
+    // Escape HTML to prevent XSS
+    const escapeHtml = (str) => {
+      const div = document.createElement('div')
+      div.textContent = str
+      return div.innerHTML
+    }
+    
+    const escapedText = escapeHtml(text)
+    
+    // URL regex pattern - matches http://, https://, and www.
+    const urlRegex = /(https?:\/\/[^\s<>"']+|www\.[^\s<>"']+)/gi
+    
+    return escapedText.replace(urlRegex, (url, offset) => {
+      // Remove any trailing punctuation that might be part of sentence structure
+      const cleanUrl = url.replace(/[.,;:!?)\]}>]+$/, '')
+      // Add http:// if it starts with www.
+      const href = cleanUrl.startsWith('www.') ? `http://${cleanUrl}` : cleanUrl
+      // Get the original text after the URL to preserve trailing punctuation
+      const afterUrl = escapedText.substring(offset + url.length)
+      const trailingPunctMatch = afterUrl.match(/^[.,;:!?)\]}>]+/)
+      const trailingPunct = trailingPunctMatch ? trailingPunctMatch[0] : ''
+      
+      return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(cleanUrl)}</a>${trailingPunct}`
+    })
   }
 
   const toggle = (station) => { 
@@ -484,6 +587,14 @@
   
 </script>
 
+<div class="relevant-lines">
+  {#each linesWithIncidents as line}
+    <span class="dot {line}" on:click={() => showIncidents(line)}>
+      <span class="incident-indicator">!</span>
+    </span>
+  {/each}
+</div>
+
 <div class="relevant-stations">
   {#each relevantStations as station}
     <span class="station" on:click={() => toggle(station)}>{station.Name.length > 20 ? station.Name.substring(0,20) : station.Name}
@@ -522,6 +633,25 @@
   </div>
 {/if}
 
+{#if showIncidentModal}
+  <div class="incident-modal-overlay" on:click={closeIncidentModal}>
+    <div class="incident-modal" on:click|stopPropagation>
+      <button class="incident-close" on:click={closeIncidentModal}>×</button>
+      <div class="incident-header">
+        <span class="dot {selectedLine}"></span>
+        <span class="incident-header-text {selectedLine}">Incidents</span>
+      </div>
+      <div class="incident-content">
+        {#each selectedIncidents as incident}
+          <div class="incident-item">
+            {@html linkifyDescription(incident.Description || incident.description || 'No description available')}
+          </div>
+        {/each}
+      </div>
+    </div>
+  </div>
+{/if}
+
 <style>
   .station {
     background-color: #e5e1e1;;
@@ -541,6 +671,30 @@
     color: #394d76;
 /*    font-family: "Open Sans";*/
 /*    font-size: 12px;*/
+  }
+
+  .relevant-lines {
+    margin: 5px;
+    display: flex;
+    width: 100%;
+    gap: 5px;
+  }
+
+  .relevant-lines :global(.dot) {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .incident-indicator {
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
   }
 
   .relevant-stations {
@@ -618,5 +772,100 @@
   :global(.custom-marker) {
     background: transparent;
     border: none;
+  }
+
+  .incident-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .incident-modal {
+    position: relative;
+    background-color: #21292f;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .incident-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #394d76;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .incident-close:hover {
+    background-color: #5977b5;
+  }
+
+  .incident-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .incident-header-text {
+    font-family: "VT323", monospace;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: transparent;
+  }
+
+  .incident-header-text.RD { color: red; background-color: transparent; }
+  .incident-header-text.SV { color: silver; background-color: transparent; }
+  .incident-header-text.YL { color: yellow; background-color: transparent; }
+  .incident-header-text.BL { color: blue; background-color: transparent; }
+  .incident-header-text.OR { color: orange; background-color: transparent; }
+  .incident-header-text.GR { color: green; background-color: transparent; }
+
+  .incident-content {
+    color: white;
+    font-family: "VT323", monospace;
+  }
+
+  .incident-item {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    font-size: 18px;
+    line-height: 1.4;
+  }
+
+  .incident-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .incident-item a {
+    color: rgb(0, 100, 200);
+    text-decoration: underline;
+  }
+
+  .incident-item a:hover {
+    color: rgb(0, 150, 255);
   }
 </style>

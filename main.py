@@ -41,13 +41,24 @@ def stations():
             for line in match["Lines"]:
                 station["Lines"].append(line)
             response["Stations"].remove(match)
-    return json.dumps(response["Stations"])
+    return response["Stations"]
 
 
 @app.route("/bus_stops")
 def bus_stops():
     response = json.loads(requests.get("http://api.wmata.com/Bus.svc/json/jStops", headers={"Cache-Control": "no-cache", 'api_key': wmata_api_key}).text)
     return response["Stops"]
+
+@app.route("/incidents")
+def incidents():
+    response = json.loads(requests.get("https://api.wmata.com/Incidents.svc/json/Incidents", headers={"Cache-Control": "no-cache", 'api_key': wmata_api_key}).text)
+    incidents = response["Incidents"]
+    # Filter out incidents with "escalator replacement" in description
+    filtered_incidents = [
+        incident for incident in incidents
+        if incident.get("Description") and "escalator replacement" not in incident.get("Description", "").lower()
+    ]
+    return filtered_incidents
 
 @app.route("/bus_predictions/<stops>")
 def bus_predictions(stops):

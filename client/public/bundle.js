@@ -83,6 +83,31 @@ var app = (function () {
         e.initCustomEvent(type, false, false, detail);
         return e;
     }
+    class HtmlTag {
+        constructor(html, anchor = null) {
+            this.e = element('div');
+            this.a = anchor;
+            this.u(html);
+        }
+        m(target, anchor = null) {
+            for (let i = 0; i < this.n.length; i += 1) {
+                insert(target, this.n[i], anchor);
+            }
+            this.t = target;
+        }
+        u(html) {
+            this.e.innerHTML = html;
+            this.n = Array.from(this.e.childNodes);
+        }
+        p(html) {
+            this.d();
+            this.u(html);
+            this.m(this.t, this.a);
+        }
+        d() {
+            this.n.forEach(detach);
+        }
+    }
 
     let current_component;
     function set_current_component(component) {
@@ -2397,22 +2422,80 @@ var app = (function () {
 
     function get_each_context$4(ctx, list, i) {
     	const child_ctx = Object.create(ctx);
-    	child_ctx.stop = list[i];
+    	child_ctx.incident = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1$4(ctx, list, i) {
     	const child_ctx = Object.create(ctx);
+    	child_ctx.stop = list[i];
+    	return child_ctx;
+    }
+
+    function get_each_context_2(ctx, list, i) {
+    	const child_ctx = Object.create(ctx);
     	child_ctx.station = list[i];
     	return child_ctx;
     }
 
-    // (488:2) {#each relevantStations as station}
-    function create_each_block_1$4(ctx) {
+    function get_each_context_3(ctx, list, i) {
+    	const child_ctx = Object.create(ctx);
+    	child_ctx.line = list[i];
+    	return child_ctx;
+    }
+
+    // (591:2) {#each linesWithIncidents as line}
+    function create_each_block_3(ctx) {
+    	var span1, span0, t_1, span1_class_value, dispose;
+
+    	function click_handler_2() {
+    		return ctx.click_handler_2(ctx);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			span1 = element("span");
+    			span0 = element("span");
+    			span0.textContent = "!";
+    			t_1 = space();
+    			attr_dev(span0, "class", "incident-indicator svelte-e3c093");
+    			add_location(span0, file$4, 592, 6, 19426);
+    			attr_dev(span1, "class", span1_class_value = "dot " + ctx.line + " svelte-e3c093");
+    			add_location(span1, file$4, 591, 4, 19357);
+    			dispose = listen_dev(span1, "click", click_handler_2);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, span1, anchor);
+    			append_dev(span1, span0);
+    			append_dev(span1, t_1);
+    		},
+
+    		p: function update(changed, new_ctx) {
+    			ctx = new_ctx;
+    			if ((changed.linesWithIncidents) && span1_class_value !== (span1_class_value = "dot " + ctx.line + " svelte-e3c093")) {
+    				attr_dev(span1, "class", span1_class_value);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(span1);
+    			}
+
+    			dispose();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_3.name, type: "each", source: "(591:2) {#each linesWithIncidents as line}", ctx });
+    	return block;
+    }
+
+    // (599:2) {#each relevantStations as station}
+    function create_each_block_2(ctx) {
     	var span, t0_value = ctx.station.Name.length > 20 ? ctx.station.Name.substring(0,20) : ctx.station.Name + "", t0, t1, dispose;
 
-    	function click_handler_1() {
-    		return ctx.click_handler_1(ctx);
+    	function click_handler_3() {
+    		return ctx.click_handler_3(ctx);
     	}
 
     	const block = {
@@ -2420,9 +2503,9 @@ var app = (function () {
     			span = element("span");
     			t0 = text(t0_value);
     			t1 = space();
-    			attr_dev(span, "class", "station svelte-1v3w4a");
-    			add_location(span, file$4, 488, 4, 15711);
-    			dispose = listen_dev(span, "click", click_handler_1);
+    			attr_dev(span, "class", "station svelte-e3c093");
+    			add_location(span, file$4, 599, 4, 19572);
+    			dispose = listen_dev(span, "click", click_handler_3);
     		},
 
     		m: function mount(target, anchor) {
@@ -2446,20 +2529,20 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$4.name, type: "each", source: "(488:2) {#each relevantStations as station}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_2.name, type: "each", source: "(599:2) {#each relevantStations as station}", ctx });
     	return block;
     }
 
-    // (494:0) {#if !hideBusses}
-    function create_if_block_3(ctx) {
+    // (605:0) {#if !hideBusses}
+    function create_if_block_4(ctx) {
     	var div;
 
-    	let each_value = ctx.relevantBusStops;
+    	let each_value_1 = ctx.relevantBusStops;
 
     	let each_blocks = [];
 
-    	for (let i = 0; i < each_value.length; i += 1) {
-    		each_blocks[i] = create_each_block$4(get_each_context$4(ctx, each_value, i));
+    	for (let i = 0; i < each_value_1.length; i += 1) {
+    		each_blocks[i] = create_each_block_1$4(get_each_context_1$4(ctx, each_value_1, i));
     	}
 
     	const block = {
@@ -2469,8 +2552,8 @@ var app = (function () {
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
-    			attr_dev(div, "class", "relevant-stations svelte-1v3w4a");
-    			add_location(div, file$4, 494, 2, 15889);
+    			attr_dev(div, "class", "relevant-stations svelte-e3c093");
+    			add_location(div, file$4, 605, 2, 19750);
     		},
 
     		m: function mount(target, anchor) {
@@ -2483,16 +2566,16 @@ var app = (function () {
 
     		p: function update(changed, ctx) {
     			if (changed.relevantBusStops) {
-    				each_value = ctx.relevantBusStops;
+    				each_value_1 = ctx.relevantBusStops;
 
     				let i;
-    				for (i = 0; i < each_value.length; i += 1) {
-    					const child_ctx = get_each_context$4(ctx, each_value, i);
+    				for (i = 0; i < each_value_1.length; i += 1) {
+    					const child_ctx = get_each_context_1$4(ctx, each_value_1, i);
 
     					if (each_blocks[i]) {
     						each_blocks[i].p(changed, child_ctx);
     					} else {
-    						each_blocks[i] = create_each_block$4(child_ctx);
+    						each_blocks[i] = create_each_block_1$4(child_ctx);
     						each_blocks[i].c();
     						each_blocks[i].m(div, null);
     					}
@@ -2501,7 +2584,7 @@ var app = (function () {
     				for (; i < each_blocks.length; i += 1) {
     					each_blocks[i].d(1);
     				}
-    				each_blocks.length = each_value.length;
+    				each_blocks.length = each_value_1.length;
     			}
     		},
 
@@ -2513,25 +2596,25 @@ var app = (function () {
     			destroy_each(each_blocks, detaching);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_3.name, type: "if", source: "(494:0) {#if !hideBusses}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_4.name, type: "if", source: "(605:0) {#if !hideBusses}", ctx });
     	return block;
     }
 
-    // (496:4) {#each relevantBusStops as stop}
-    function create_each_block$4(ctx) {
+    // (607:4) {#each relevantBusStops as stop}
+    function create_each_block_1$4(ctx) {
     	var span, t_value = ctx.stop.Name + " (" + ctx.stop.StopID + ")" + "", t, dispose;
 
-    	function click_handler_2() {
-    		return ctx.click_handler_2(ctx);
+    	function click_handler_4() {
+    		return ctx.click_handler_4(ctx);
     	}
 
     	const block = {
     		c: function create() {
     			span = element("span");
     			t = text(t_value);
-    			attr_dev(span, "class", "bus-stop svelte-1v3w4a");
-    			add_location(span, file$4, 496, 6, 15964);
-    			dispose = listen_dev(span, "click", click_handler_2);
+    			attr_dev(span, "class", "bus-stop svelte-e3c093");
+    			add_location(span, file$4, 607, 6, 19825);
+    			dispose = listen_dev(span, "click", click_handler_4);
     		},
 
     		m: function mount(target, anchor) {
@@ -2554,12 +2637,12 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$4.name, type: "each", source: "(496:4) {#each relevantBusStops as stop}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$4.name, type: "each", source: "(607:4) {#each relevantBusStops as stop}", ctx });
     	return block;
     }
 
-    // (503:0) {#if !hideBusses}
-    function create_if_block_2$1(ctx) {
+    // (614:0) {#if !hideBusses}
+    function create_if_block_3(ctx) {
     	var updating_relevantBusStops, updating_isSearching, t, button, current, dispose;
 
     	function busstoppicker_relevantBusStops_binding(value) {
@@ -2595,8 +2678,8 @@ var app = (function () {
     			t = space();
     			button = element("button");
     			button.textContent = "📍 Bus stop map";
-    			attr_dev(button, "class", "find-closest-stop svelte-1v3w4a");
-    			add_location(button, file$4, 504, 2, 16333);
+    			attr_dev(button, "class", "find-closest-stop svelte-e3c093");
+    			add_location(button, file$4, 615, 2, 20194);
     			dispose = listen_dev(button, "click", ctx.findClosestStop);
     		},
 
@@ -2641,12 +2724,12 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2$1.name, type: "if", source: "(503:0) {#if !hideBusses}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_3.name, type: "if", source: "(614:0) {#if !hideBusses}", ctx });
     	return block;
     }
 
-    // (509:0) {#if !hideBusses}
-    function create_if_block_1$2(ctx) {
+    // (620:0) {#if !hideBusses}
+    function create_if_block_2$1(ctx) {
     	var updating_relevantBusStops, current;
 
     	function busboard_relevantBusStops_binding(value) {
@@ -2697,12 +2780,12 @@ var app = (function () {
     			destroy_component(busboard, detaching);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1$2.name, type: "if", source: "(509:0) {#if !hideBusses}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2$1.name, type: "if", source: "(620:0) {#if !hideBusses}", ctx });
     	return block;
     }
 
-    // (516:0) {#if showMapModal}
-    function create_if_block$4(ctx) {
+    // (627:0) {#if showMapModal}
+    function create_if_block_1$2(ctx) {
     	var div2, div1, button, t_1, div0, dispose;
 
     	const block = {
@@ -2713,15 +2796,15 @@ var app = (function () {
     			button.textContent = "×";
     			t_1 = space();
     			div0 = element("div");
-    			attr_dev(button, "class", "map-close svelte-1v3w4a");
-    			add_location(button, file$4, 518, 6, 16935);
+    			attr_dev(button, "class", "map-close svelte-e3c093");
+    			add_location(button, file$4, 629, 6, 20796);
     			attr_dev(div0, "id", "map");
-    			attr_dev(div0, "class", "map-container svelte-1v3w4a");
-    			add_location(div0, file$4, 519, 6, 17003);
-    			attr_dev(div1, "class", "map-modal svelte-1v3w4a");
-    			add_location(div1, file$4, 517, 4, 16880);
-    			attr_dev(div2, "class", "map-modal-overlay svelte-1v3w4a");
-    			add_location(div2, file$4, 516, 2, 16819);
+    			attr_dev(div0, "class", "map-container svelte-e3c093");
+    			add_location(div0, file$4, 630, 6, 20864);
+    			attr_dev(div1, "class", "map-modal svelte-e3c093");
+    			add_location(div1, file$4, 628, 4, 20741);
+    			attr_dev(div2, "class", "map-modal-overlay svelte-e3c093");
+    			add_location(div2, file$4, 627, 2, 20680);
 
     			dispose = [
     				listen_dev(button, "click", ctx.closeMapModal),
@@ -2746,22 +2829,181 @@ var app = (function () {
     			run_all(dispose);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$4.name, type: "if", source: "(516:0) {#if showMapModal}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1$2.name, type: "if", source: "(627:0) {#if showMapModal}", ctx });
+    	return block;
+    }
+
+    // (636:0) {#if showIncidentModal}
+    function create_if_block$4(ctx) {
+    	var div3, div2, button, t1, div0, span0, span0_class_value, t2, span1, t3, span1_class_value, t4, div1, dispose;
+
+    	let each_value = ctx.selectedIncidents;
+
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block$4(get_each_context$4(ctx, each_value, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div3 = element("div");
+    			div2 = element("div");
+    			button = element("button");
+    			button.textContent = "×";
+    			t1 = space();
+    			div0 = element("div");
+    			span0 = element("span");
+    			t2 = space();
+    			span1 = element("span");
+    			t3 = text("Incidents");
+    			t4 = space();
+    			div1 = element("div");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+    			attr_dev(button, "class", "incident-close svelte-e3c093");
+    			add_location(button, file$4, 638, 6, 21091);
+    			attr_dev(span0, "class", span0_class_value = "dot " + ctx.selectedLine + " svelte-e3c093");
+    			add_location(span0, file$4, 640, 8, 21207);
+    			attr_dev(span1, "class", span1_class_value = "incident-header-text " + ctx.selectedLine + " svelte-e3c093");
+    			add_location(span1, file$4, 641, 8, 21256);
+    			attr_dev(div0, "class", "incident-header svelte-e3c093");
+    			add_location(div0, file$4, 639, 6, 21169);
+    			attr_dev(div1, "class", "incident-content svelte-e3c093");
+    			add_location(div1, file$4, 643, 6, 21342);
+    			attr_dev(div2, "class", "incident-modal svelte-e3c093");
+    			add_location(div2, file$4, 637, 4, 21031);
+    			attr_dev(div3, "class", "incident-modal-overlay svelte-e3c093");
+    			add_location(div3, file$4, 636, 2, 20960);
+
+    			dispose = [
+    				listen_dev(button, "click", ctx.closeIncidentModal),
+    				listen_dev(div2, "click", stop_propagation(ctx.click_handler_1), false, false, true),
+    				listen_dev(div3, "click", ctx.closeIncidentModal)
+    			];
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div3, anchor);
+    			append_dev(div3, div2);
+    			append_dev(div2, button);
+    			append_dev(div2, t1);
+    			append_dev(div2, div0);
+    			append_dev(div0, span0);
+    			append_dev(div0, t2);
+    			append_dev(div0, span1);
+    			append_dev(span1, t3);
+    			append_dev(div2, t4);
+    			append_dev(div2, div1);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div1, null);
+    			}
+    		},
+
+    		p: function update(changed, ctx) {
+    			if ((changed.selectedLine) && span0_class_value !== (span0_class_value = "dot " + ctx.selectedLine + " svelte-e3c093")) {
+    				attr_dev(span0, "class", span0_class_value);
+    			}
+
+    			if ((changed.selectedLine) && span1_class_value !== (span1_class_value = "incident-header-text " + ctx.selectedLine + " svelte-e3c093")) {
+    				attr_dev(span1, "class", span1_class_value);
+    			}
+
+    			if (changed.linkifyDescription || changed.selectedIncidents) {
+    				each_value = ctx.selectedIncidents;
+
+    				let i;
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context$4(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(changed, child_ctx);
+    					} else {
+    						each_blocks[i] = create_each_block$4(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(div1, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+    				each_blocks.length = each_value.length;
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div3);
+    			}
+
+    			destroy_each(each_blocks, detaching);
+
+    			run_all(dispose);
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$4.name, type: "if", source: "(636:0) {#if showIncidentModal}", ctx });
+    	return block;
+    }
+
+    // (645:8) {#each selectedIncidents as incident}
+    function create_each_block$4(ctx) {
+    	var div, html_tag, raw_value = ctx.linkifyDescription(ctx.incident.Description || ctx.incident.description || 'No description available') + "", t;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			t = space();
+    			html_tag = new HtmlTag(raw_value, t);
+    			attr_dev(div, "class", "incident-item svelte-e3c093");
+    			add_location(div, file$4, 645, 10, 21429);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			html_tag.m(div);
+    			append_dev(div, t);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if ((changed.selectedIncidents) && raw_value !== (raw_value = ctx.linkifyDescription(ctx.incident.Description || ctx.incident.description || 'No description available') + "")) {
+    				html_tag.p(raw_value);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div);
+    			}
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$4.name, type: "each", source: "(645:8) {#each selectedIncidents as incident}", ctx });
     	return block;
     }
 
     function create_fragment$4(ctx) {
-    	var div, t0, t1, updating_relevantStations, updating_hideBusses, updating_isSearching, t2, t3, updating_relevantStationNames, updating_hideBusses_1, t4, t5, br, t6, button, t7_value = ctx.hideBusses ? "🚌 Show Busses too!" : "🚌 Hide Busses" + "", t7, t8, if_block3_anchor, current, dispose;
+    	var div0, t0, div1, t1, t2, updating_relevantStations, updating_hideBusses, updating_isSearching, t3, t4, updating_relevantStationNames, updating_hideBusses_1, t5, t6, br, t7, button, t8_value = ctx.hideBusses ? "🚌 Show Busses too!" : "🚌 Hide Busses" + "", t8, t9, t10, if_block4_anchor, current, dispose;
 
-    	let each_value_1 = ctx.relevantStations;
+    	let each_value_3 = ctx.linesWithIncidents;
+
+    	let each_blocks_1 = [];
+
+    	for (let i = 0; i < each_value_3.length; i += 1) {
+    		each_blocks_1[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
+    	}
+
+    	let each_value_2 = ctx.relevantStations;
 
     	let each_blocks = [];
 
-    	for (let i = 0; i < each_value_1.length; i += 1) {
-    		each_blocks[i] = create_each_block_1$4(get_each_context_1$4(ctx, each_value_1, i));
+    	for (let i = 0; i < each_value_2.length; i += 1) {
+    		each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
     	}
 
-    	var if_block0 = (!ctx.hideBusses) && create_if_block_3(ctx);
+    	var if_block0 = (!ctx.hideBusses) && create_if_block_4(ctx);
 
     	function stationpicker_relevantStations_binding(value) {
     		ctx.stationpicker_relevantStations_binding.call(null, value);
@@ -2800,7 +3042,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind(stationpicker, 'hideBusses', stationpicker_hideBusses_binding));
     	binding_callbacks.push(() => bind(stationpicker, 'isSearching', stationpicker_isSearching_binding));
 
-    	var if_block1 = (!ctx.hideBusses) && create_if_block_2$1(ctx);
+    	var if_block1 = (!ctx.hideBusses) && create_if_block_3(ctx);
 
     	function board_relevantStationNames_binding(value_3) {
     		ctx.board_relevantStationNames_binding.call(null, value_3);
@@ -2829,43 +3071,56 @@ var app = (function () {
     	binding_callbacks.push(() => bind(board, 'relevantStationNames', board_relevantStationNames_binding));
     	binding_callbacks.push(() => bind(board, 'hideBusses', board_hideBusses_binding));
 
-    	var if_block2 = (!ctx.hideBusses) && create_if_block_1$2(ctx);
+    	var if_block2 = (!ctx.hideBusses) && create_if_block_2$1(ctx);
 
-    	var if_block3 = (ctx.showMapModal) && create_if_block$4(ctx);
+    	var if_block3 = (ctx.showMapModal) && create_if_block_1$2(ctx);
+
+    	var if_block4 = (ctx.showIncidentModal) && create_if_block$4(ctx);
 
     	const block = {
     		c: function create() {
-    			div = element("div");
+    			div0 = element("div");
+
+    			for (let i = 0; i < each_blocks_1.length; i += 1) {
+    				each_blocks_1[i].c();
+    			}
+
+    			t0 = space();
+    			div1 = element("div");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			t0 = space();
-    			if (if_block0) if_block0.c();
     			t1 = space();
-    			stationpicker.$$.fragment.c();
+    			if (if_block0) if_block0.c();
     			t2 = space();
-    			if (if_block1) if_block1.c();
+    			stationpicker.$$.fragment.c();
     			t3 = space();
-    			board.$$.fragment.c();
+    			if (if_block1) if_block1.c();
     			t4 = space();
-    			if (if_block2) if_block2.c();
+    			board.$$.fragment.c();
     			t5 = space();
-    			br = element("br");
+    			if (if_block2) if_block2.c();
     			t6 = space();
+    			br = element("br");
+    			t7 = space();
     			button = element("button");
-    			t7 = text(t7_value);
-    			t8 = space();
+    			t8 = text(t8_value);
+    			t9 = space();
     			if (if_block3) if_block3.c();
-    			if_block3_anchor = empty();
-    			attr_dev(div, "class", "relevant-stations svelte-1v3w4a");
-    			add_location(div, file$4, 486, 0, 15637);
-    			add_location(br, file$4, 512, 0, 16669);
+    			t10 = space();
+    			if (if_block4) if_block4.c();
+    			if_block4_anchor = empty();
+    			attr_dev(div0, "class", "relevant-lines svelte-e3c093");
+    			add_location(div0, file$4, 589, 0, 19287);
+    			attr_dev(div1, "class", "relevant-stations svelte-e3c093");
+    			add_location(div1, file$4, 597, 0, 19498);
+    			add_location(br, file$4, 623, 0, 20530);
     			attr_dev(button, "id", "hide-busses");
-    			attr_dev(button, "class", "svelte-1v3w4a");
-    			add_location(button, file$4, 513, 0, 16674);
-    			dispose = listen_dev(button, "click", ctx.click_handler_3);
+    			attr_dev(button, "class", "svelte-e3c093");
+    			add_location(button, file$4, 624, 0, 20535);
+    			dispose = listen_dev(button, "click", ctx.click_handler_5);
     		},
 
     		l: function claim(nodes) {
@@ -2873,63 +3128,94 @@ var app = (function () {
     		},
 
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
+    			insert_dev(target, div0, anchor);
 
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(div, null);
+    			for (let i = 0; i < each_blocks_1.length; i += 1) {
+    				each_blocks_1[i].m(div0, null);
     			}
 
     			insert_dev(target, t0, anchor);
-    			if (if_block0) if_block0.m(target, anchor);
+    			insert_dev(target, div1, anchor);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div1, null);
+    			}
+
     			insert_dev(target, t1, anchor);
-    			mount_component(stationpicker, target, anchor);
+    			if (if_block0) if_block0.m(target, anchor);
     			insert_dev(target, t2, anchor);
-    			if (if_block1) if_block1.m(target, anchor);
+    			mount_component(stationpicker, target, anchor);
     			insert_dev(target, t3, anchor);
-    			mount_component(board, target, anchor);
+    			if (if_block1) if_block1.m(target, anchor);
     			insert_dev(target, t4, anchor);
-    			if (if_block2) if_block2.m(target, anchor);
+    			mount_component(board, target, anchor);
     			insert_dev(target, t5, anchor);
-    			insert_dev(target, br, anchor);
+    			if (if_block2) if_block2.m(target, anchor);
     			insert_dev(target, t6, anchor);
+    			insert_dev(target, br, anchor);
+    			insert_dev(target, t7, anchor);
     			insert_dev(target, button, anchor);
-    			append_dev(button, t7);
-    			insert_dev(target, t8, anchor);
+    			append_dev(button, t8);
+    			insert_dev(target, t9, anchor);
     			if (if_block3) if_block3.m(target, anchor);
-    			insert_dev(target, if_block3_anchor, anchor);
+    			insert_dev(target, t10, anchor);
+    			if (if_block4) if_block4.m(target, anchor);
+    			insert_dev(target, if_block4_anchor, anchor);
     			current = true;
     		},
 
     		p: function update(changed, ctx) {
-    			if (changed.relevantStations) {
-    				each_value_1 = ctx.relevantStations;
+    			if (changed.linesWithIncidents) {
+    				each_value_3 = ctx.linesWithIncidents;
 
     				let i;
-    				for (i = 0; i < each_value_1.length; i += 1) {
-    					const child_ctx = get_each_context_1$4(ctx, each_value_1, i);
+    				for (i = 0; i < each_value_3.length; i += 1) {
+    					const child_ctx = get_each_context_3(ctx, each_value_3, i);
+
+    					if (each_blocks_1[i]) {
+    						each_blocks_1[i].p(changed, child_ctx);
+    					} else {
+    						each_blocks_1[i] = create_each_block_3(child_ctx);
+    						each_blocks_1[i].c();
+    						each_blocks_1[i].m(div0, null);
+    					}
+    				}
+
+    				for (; i < each_blocks_1.length; i += 1) {
+    					each_blocks_1[i].d(1);
+    				}
+    				each_blocks_1.length = each_value_3.length;
+    			}
+
+    			if (changed.relevantStations) {
+    				each_value_2 = ctx.relevantStations;
+
+    				let i;
+    				for (i = 0; i < each_value_2.length; i += 1) {
+    					const child_ctx = get_each_context_2(ctx, each_value_2, i);
 
     					if (each_blocks[i]) {
     						each_blocks[i].p(changed, child_ctx);
     					} else {
-    						each_blocks[i] = create_each_block_1$4(child_ctx);
+    						each_blocks[i] = create_each_block_2(child_ctx);
     						each_blocks[i].c();
-    						each_blocks[i].m(div, null);
+    						each_blocks[i].m(div1, null);
     					}
     				}
 
     				for (; i < each_blocks.length; i += 1) {
     					each_blocks[i].d(1);
     				}
-    				each_blocks.length = each_value_1.length;
+    				each_blocks.length = each_value_2.length;
     			}
 
     			if (!ctx.hideBusses) {
     				if (if_block0) {
     					if_block0.p(changed, ctx);
     				} else {
-    					if_block0 = create_if_block_3(ctx);
+    					if_block0 = create_if_block_4(ctx);
     					if_block0.c();
-    					if_block0.m(t1.parentNode, t1);
+    					if_block0.m(t2.parentNode, t2);
     				}
     			} else if (if_block0) {
     				if_block0.d(1);
@@ -2953,10 +3239,10 @@ var app = (function () {
     					if_block1.p(changed, ctx);
     					transition_in(if_block1, 1);
     				} else {
-    					if_block1 = create_if_block_2$1(ctx);
+    					if_block1 = create_if_block_3(ctx);
     					if_block1.c();
     					transition_in(if_block1, 1);
-    					if_block1.m(t3.parentNode, t3);
+    					if_block1.m(t4.parentNode, t4);
     				}
     			} else if (if_block1) {
     				group_outros();
@@ -2982,10 +3268,10 @@ var app = (function () {
     					if_block2.p(changed, ctx);
     					transition_in(if_block2, 1);
     				} else {
-    					if_block2 = create_if_block_1$2(ctx);
+    					if_block2 = create_if_block_2$1(ctx);
     					if_block2.c();
     					transition_in(if_block2, 1);
-    					if_block2.m(t5.parentNode, t5);
+    					if_block2.m(t6.parentNode, t6);
     				}
     			} else if (if_block2) {
     				group_outros();
@@ -2995,19 +3281,32 @@ var app = (function () {
     				check_outros();
     			}
 
-    			if ((!current || changed.hideBusses) && t7_value !== (t7_value = ctx.hideBusses ? "🚌 Show Busses too!" : "🚌 Hide Busses" + "")) {
-    				set_data_dev(t7, t7_value);
+    			if ((!current || changed.hideBusses) && t8_value !== (t8_value = ctx.hideBusses ? "🚌 Show Busses too!" : "🚌 Hide Busses" + "")) {
+    				set_data_dev(t8, t8_value);
     			}
 
     			if (ctx.showMapModal) {
     				if (!if_block3) {
-    					if_block3 = create_if_block$4(ctx);
+    					if_block3 = create_if_block_1$2(ctx);
     					if_block3.c();
-    					if_block3.m(if_block3_anchor.parentNode, if_block3_anchor);
+    					if_block3.m(t10.parentNode, t10);
     				}
     			} else if (if_block3) {
     				if_block3.d(1);
     				if_block3 = null;
+    			}
+
+    			if (ctx.showIncidentModal) {
+    				if (if_block4) {
+    					if_block4.p(changed, ctx);
+    				} else {
+    					if_block4 = create_if_block$4(ctx);
+    					if_block4.c();
+    					if_block4.m(if_block4_anchor.parentNode, if_block4_anchor);
+    				}
+    			} else if (if_block4) {
+    				if_block4.d(1);
+    				if_block4 = null;
     			}
     		},
 
@@ -3033,53 +3332,66 @@ var app = (function () {
 
     		d: function destroy(detaching) {
     			if (detaching) {
-    				detach_dev(div);
+    				detach_dev(div0);
+    			}
+
+    			destroy_each(each_blocks_1, detaching);
+
+    			if (detaching) {
+    				detach_dev(t0);
+    				detach_dev(div1);
     			}
 
     			destroy_each(each_blocks, detaching);
 
     			if (detaching) {
-    				detach_dev(t0);
+    				detach_dev(t1);
     			}
 
     			if (if_block0) if_block0.d(detaching);
 
     			if (detaching) {
-    				detach_dev(t1);
+    				detach_dev(t2);
     			}
 
     			destroy_component(stationpicker, detaching);
 
     			if (detaching) {
-    				detach_dev(t2);
+    				detach_dev(t3);
     			}
 
     			if (if_block1) if_block1.d(detaching);
 
     			if (detaching) {
-    				detach_dev(t3);
+    				detach_dev(t4);
     			}
 
     			destroy_component(board, detaching);
 
     			if (detaching) {
-    				detach_dev(t4);
+    				detach_dev(t5);
     			}
 
     			if (if_block2) if_block2.d(detaching);
 
     			if (detaching) {
-    				detach_dev(t5);
-    				detach_dev(br);
     				detach_dev(t6);
+    				detach_dev(br);
+    				detach_dev(t7);
     				detach_dev(button);
-    				detach_dev(t8);
+    				detach_dev(t9);
     			}
 
     			if (if_block3) if_block3.d(detaching);
 
     			if (detaching) {
-    				detach_dev(if_block3_anchor);
+    				detach_dev(t10);
+    			}
+
+    			if (if_block4) if_block4.d(detaching);
+
+    			if (detaching) {
+    				detach_dev(if_block4_anchor);
     			}
 
     			dispose();
@@ -3095,6 +3407,8 @@ var app = (function () {
       let relevantStations = [];
       let relevantStationNames = "";
       let relevantBusStops = [];
+      let relevantRailLines = [];
+      let incidents = [];
 
       let hideBusses;
       let showMapModal = false;
@@ -3102,6 +3416,9 @@ var app = (function () {
       let mapInstance = null;
       let stationSearching = false;
       let busSearching = false;
+      let showIncidentModal = false;
+      let selectedIncidents = [];
+      let selectedLine = null;
       
       // Marker management state
       let stopMarkersLayer = null;
@@ -3126,6 +3443,66 @@ var app = (function () {
         $$invalidate('hideBusses', hideBusses = true);
         localStorage.setItem("hideBusses", JSON.stringify(hideBusses));
       }
+
+      onMount(async () => {
+        const response = await fetch('./incidents');
+        $$invalidate('incidents', incidents = await response.json());
+        console.log('Incidents loaded:', incidents);
+        if (incidents.length > 0) {
+          console.log('First incident:', incidents[0]);
+          console.log('LinesAffected property:', incidents[0].LinesAffected);
+        }
+      });
+
+      const getIncidentsForLine = (line) => {
+        if (!incidents || incidents.length === 0) return []
+        return incidents.filter(incident => {
+          const linesAffected = incident.LinesAffected || incident.linesAffected || incident['Lines Affected'];
+          if (!linesAffected) return false
+          return linesAffected.includes(line)
+        })
+      };
+
+      const showIncidents = (line) => {
+        $$invalidate('selectedLine', selectedLine = line);
+        $$invalidate('selectedIncidents', selectedIncidents = getIncidentsForLine(line));
+        $$invalidate('showIncidentModal', showIncidentModal = true);
+      };
+
+      const closeIncidentModal = () => {
+        $$invalidate('showIncidentModal', showIncidentModal = false);
+        $$invalidate('selectedIncidents', selectedIncidents = []);
+        $$invalidate('selectedLine', selectedLine = null);
+      };
+
+      const linkifyDescription = (text) => {
+        if (!text) return ''
+        
+        // Escape HTML to prevent XSS
+        const escapeHtml = (str) => {
+          const div = document.createElement('div');
+          div.textContent = str;
+          return div.innerHTML
+        };
+        
+        const escapedText = escapeHtml(text);
+        
+        // URL regex pattern - matches http://, https://, and www.
+        const urlRegex = /(https?:\/\/[^\s<>"']+|www\.[^\s<>"']+)/gi;
+        
+        return escapedText.replace(urlRegex, (url, offset) => {
+          // Remove any trailing punctuation that might be part of sentence structure
+          const cleanUrl = url.replace(/[.,;:!?)\]}>]+$/, '');
+          // Add http:// if it starts with www.
+          const href = cleanUrl.startsWith('www.') ? `http://${cleanUrl}` : cleanUrl;
+          // Get the original text after the URL to preserve trailing punctuation
+          const afterUrl = escapedText.substring(offset + url.length);
+          const trailingPunctMatch = afterUrl.match(/^[.,;:!?)\]}>]+/);
+          const trailingPunct = trailingPunctMatch ? trailingPunctMatch[0] : '';
+          
+          return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(cleanUrl)}</a>${trailingPunct}`
+        })
+      };
 
       const toggle = (station) => { 
         if (relevantStations && station) {
@@ -3557,9 +3934,15 @@ var app = (function () {
     		bubble($$self, event);
     	}
 
-    	const click_handler_1 = ({ station }) => toggle(station);
+    	function click_handler_1(event) {
+    		bubble($$self, event);
+    	}
 
-    	const click_handler_2 = ({ stop }) => toggleBusStop(stop);
+    	const click_handler_2 = ({ line }) => showIncidents(line);
+
+    	const click_handler_3 = ({ station }) => toggle(station);
+
+    	const click_handler_4 = ({ stop }) => toggleBusStop(stop);
 
     	function stationpicker_relevantStations_binding(value) {
     		relevantStations = value;
@@ -3601,7 +3984,7 @@ var app = (function () {
     		$$invalidate('relevantBusStops', relevantBusStops);
     	}
 
-    	const click_handler_3 = () => toggleBusMode();
+    	const click_handler_5 = () => toggleBusMode();
 
     	$$self.$capture_state = () => {
     		return {};
@@ -3611,23 +3994,48 @@ var app = (function () {
     		if ('relevantStations' in $$props) $$invalidate('relevantStations', relevantStations = $$props.relevantStations);
     		if ('relevantStationNames' in $$props) $$invalidate('relevantStationNames', relevantStationNames = $$props.relevantStationNames);
     		if ('relevantBusStops' in $$props) $$invalidate('relevantBusStops', relevantBusStops = $$props.relevantBusStops);
+    		if ('relevantRailLines' in $$props) relevantRailLines = $$props.relevantRailLines;
+    		if ('incidents' in $$props) $$invalidate('incidents', incidents = $$props.incidents);
     		if ('hideBusses' in $$props) $$invalidate('hideBusses', hideBusses = $$props.hideBusses);
     		if ('showMapModal' in $$props) $$invalidate('showMapModal', showMapModal = $$props.showMapModal);
     		if ('mapData' in $$props) $$invalidate('mapData', mapData = $$props.mapData);
     		if ('mapInstance' in $$props) $$invalidate('mapInstance', mapInstance = $$props.mapInstance);
     		if ('stationSearching' in $$props) $$invalidate('stationSearching', stationSearching = $$props.stationSearching);
     		if ('busSearching' in $$props) $$invalidate('busSearching', busSearching = $$props.busSearching);
+    		if ('showIncidentModal' in $$props) $$invalidate('showIncidentModal', showIncidentModal = $$props.showIncidentModal);
+    		if ('selectedIncidents' in $$props) $$invalidate('selectedIncidents', selectedIncidents = $$props.selectedIncidents);
+    		if ('selectedLine' in $$props) $$invalidate('selectedLine', selectedLine = $$props.selectedLine);
     		if ('stopMarkersLayer' in $$props) stopMarkersLayer = $$props.stopMarkersLayer;
     		if ('visibleMarkers' in $$props) visibleMarkers = $$props.visibleMarkers;
     		if ('mapUpdateDebounceTimer' in $$props) mapUpdateDebounceTimer = $$props.mapUpdateDebounceTimer;
     		if ('mapMoveHandler' in $$props) mapMoveHandler = $$props.mapMoveHandler;
     		if ('mapZoomHandler' in $$props) mapZoomHandler = $$props.mapZoomHandler;
     		if ('popupButtonHandler' in $$props) popupButtonHandler = $$props.popupButtonHandler;
+    		if ('linesWithIncidents' in $$props) $$invalidate('linesWithIncidents', linesWithIncidents = $$props.linesWithIncidents);
     	};
 
-    	$$self.$$.update = ($$dirty = { relevantStations: 1, relevantBusStops: 1, mapInstance: 1, mapData: 1, showMapModal: 1 }) => {
+    	let linesWithIncidents;
+
+    	$$self.$$.update = ($$dirty = { relevantStations: 1, relevantBusStops: 1, incidents: 1, mapInstance: 1, mapData: 1, showMapModal: 1 }) => {
     		if ($$dirty.relevantStations) { $$invalidate('relevantStationNames', relevantStationNames = relevantStations.map(station => station.Name)); }
+    		if ($$dirty.relevantStations) { relevantRailLines = [...new Set(
+            relevantStations.flatMap(station => station.Lines || [])
+          )]; }
     		if ($$dirty.relevantBusStops) { $$invalidate('relevantBusStops', relevantBusStops); }
+    		if ($$dirty.incidents) { $$invalidate('linesWithIncidents', linesWithIncidents = [...new Set(
+            incidents
+              .filter(incident => {
+                const linesAffected = incident.LinesAffected || incident.linesAffected || incident['Lines Affected'];
+                return linesAffected && linesAffected.trim()
+              })
+              .flatMap(incident => {
+                const linesAffected = incident.LinesAffected || incident.linesAffected || incident['Lines Affected'];
+                // Parse LinesAffected - could be "RD;" or "RD;BL;"
+                return linesAffected.split(';')
+                  .map(l => l.trim())
+                  .filter(l => l)
+              })
+          )]); }
     		if ($$dirty.mapInstance || $$dirty.mapData || $$dirty.showMapModal) { if (mapInstance && mapData && showMapModal) {
             setTimeout(() => {
               updateMapPopups();
@@ -3648,14 +4056,23 @@ var app = (function () {
     		showMapModal,
     		stationSearching,
     		busSearching,
+    		showIncidentModal,
+    		selectedIncidents,
+    		selectedLine,
+    		showIncidents,
+    		closeIncidentModal,
+    		linkifyDescription,
     		toggle,
     		toggleBusStop,
     		toggleBusMode,
     		findClosestStop,
     		closeMapModal,
+    		linesWithIncidents,
     		click_handler,
     		click_handler_1,
     		click_handler_2,
+    		click_handler_3,
+    		click_handler_4,
     		stationpicker_relevantStations_binding,
     		stationpicker_hideBusses_binding,
     		stationpicker_isSearching_binding,
@@ -3664,7 +4081,7 @@ var app = (function () {
     		board_relevantStationNames_binding,
     		board_hideBusses_binding,
     		busboard_relevantBusStops_binding,
-    		click_handler_3
+    		click_handler_5
     	};
     }
 

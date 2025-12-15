@@ -3,12 +3,15 @@
   let trainPredictions, secondsSinceLastUpdate, updatedAt;
   export let relevantStationNames;
   export let hideBusses
+  export let showMapModal = false
+  export let isSearching = false
 
   onMount(async () => {
     getTrainPredictions()
     setInterval(function(){
       secondsSinceLastUpdate = Math.round((new Date() - updatedAt) / 1000)
-      if (secondsSinceLastUpdate >= 45) {
+      // Don't refresh if map modal is open or user is searching
+      if (secondsSinceLastUpdate >= 45 && !showMapModal && !isSearching) {
         refresh()
       }
     }, 1000);
@@ -27,8 +30,10 @@
   }
 
 </script>
-<a href="#" on:click={() => refresh() }>🔄</a>
-last updated {secondsSinceLastUpdate} seconds ago
+<div>
+  <a href="#" on:click={() => refresh() }>🔄</a>
+  last updated {secondsSinceLastUpdate} seconds ago
+</div>
 {#if relevantStationNames}
   {#each relevantStationNames as station}
     <h1 class="board-station">{hideBusses ? "" : "🚆"} {station.length > 20 ? station.substring(0,20) : station}</h1>

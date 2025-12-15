@@ -9,6 +9,11 @@
   let relevantBusStops = []
 
   let hideBusses
+  let showMapModal = false
+  let mapData = null
+  let mapInstance = null
+  let stationSearching = false
+  let busSearching = false
 
   
   if (localStorage.getItem("relevantStations")) {
@@ -29,6 +34,20 @@
   
   $: relevantStationNames = relevantStations.map(station => station.Name)
   $: relevantBusStops = relevantBusStops
+  
+  // Update map popups when relevantBusStops changes (only if map is already initialized)
+  $: if (mapInstance && mapData && showMapModal) {
+    setTimeout(() => {
+      updateMapPopups()
+    }, 50)
+  }
+  
+  // Initialize map when modal opens
+  $: if (showMapModal && mapData && !mapInstance) {
+    setTimeout(() => {
+      initMap()
+    }, 200)
+  }
 
   const toggle = (station) => { 
     if (relevantStations && station) {
@@ -61,9 +80,300 @@
     }
   }
 
+  const addBusStopFromMap = (stop) => {
+    if (relevantBusStops && stop) {
+      const stopKey = stop.Name + " (" + stop.StopID + ")"
+      const existingStop = relevantBusStops.find(s => s.Name + " (" + s.StopID + ")" === stopKey)
+      
+      if (!existingStop) {
+        relevantBusStops = [...relevantBusStops, stop]
+        localStorage.setItem("relevantBusStops", JSON.stringify(relevantBusStops));
+        gtag('event', 'addBusStop', {"stop": stop, "source": "map"})
+        
+        // Update popup after adding
+        if (mapInstance) {
+          updateMapPopups()
+        }
+      }
+    }
+  }
+
+  const isStopAdded = (stop) => {
+    if (!relevantBusStops || !stop) return false
+    const stopKey = stop.Name + " (" + stop.StopID + ")"
+    return relevantBusStops.some(s => s.Name + " (" + s.StopID + ")" === stopKey)
+  }
+
+  const createStopPopupContent = (stop) => {
+    const isAdded = isStopAdded(stop)
+    const buttonText = isAdded ? "Added" : "Add"
+    const buttonStyle = isAdded 
+      ? "background-color: #78a6ee; color: white;"
+      : "background-color: #394d76; color: white;"
+    
+    // Store stop data in data attribute for event handling
+    const stopData = encodeURIComponent(JSON.stringify(stop))
+    
+    return `
+      <div style="text-align: center; padding: 5px;">
+        <div style="margin-bottom: 8px; font-weight: bold;">${stop.Name}</div>
+        <button 
+          class="add-stop-btn" 
+          data-stop='${stopData}'
+          style="${buttonStyle} border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer; font-family: inherit;"
+        >
+          ${buttonText}
+        </button>
+      </div>
+    `
+  }
+
+  const updateMapPopups = () => {
+    if (!mapInstance || !mapData) return
+    
+    // Update all stop markers' popups and icons
+    mapInstance.eachLayer((layer) => {
+      if (layer instanceof L.Marker) {
+        const stop = mapData.allStops.find(s => 
+          Math.abs(s.Lat - layer.getLatLng().lat) < 0.0001 && 
+          Math.abs(s.Lon - layer.getLatLng().lng) < 0.0001
+        )
+        if (stop) {
+          // Update popup content
+          layer.setPopupContent(createStopPopupContent(stop))
+          
+          // Update marker color based on whether stop is added
+          const isAdded = isStopAdded(stop)
+          const stopColor = isAdded ? '#78a6ee' : '#FF0000'
+          const stopIcon = L.divIcon({
+            className: 'custom-marker',
+            html: `<div style="background-color: ${stopColor}; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
+            iconSize: [20, 20],
+            iconAnchor: [10, 10]
+          })
+          layer.setIcon(stopIcon)
+        }
+      }
+    })
+    
+    // Re-attach event listeners after updating popups
+    setTimeout(() => {
+      attachPopupButtonListeners()
+    }, 100)
+  }
+
+  let popupButtonHandler = null
+
+  const attachPopupButtonListeners = () => {
+    // Remove existing listener if any
+    const mapElement = document.getElementById('map')
+    if (mapElement && popupButtonHandler) {
+      mapElement.removeEventListener('click', popupButtonHandler)
+    }
+    
+    // Add new listener
+    popupButtonHandler = (e) => {
+      if (e.target.classList.contains('add-stop-btn')) {
+        const stopData = e.target.getAttribute('data-stop')
+        if (stopData) {
+          try {
+            const stop = JSON.parse(decodeURIComponent(stopData))
+            addBusStopFromMap(stop)
+          } catch (err) {
+            console.error('Error parsing stop data:', err)
+          }
+        }
+      }
+    }
+    
+    if (mapElement) {
+      mapElement.addEventListener('click', popupButtonHandler)
+    }
+  }
+
   const toggleBusMode = () => {
     hideBusses = !hideBusses
     localStorage.setItem("hideBusses", JSON.stringify(hideBusses));
+  }
+
+  const findClosestStop = async () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        const userLat = position.coords.latitude
+        const userLng = position.coords.longitude
+        
+        // Fetch all bus stops
+        const response = await fetch(`./bus_stops`)
+        const allStops = await response.json()
+        
+        // Calculate distance using Haversine formula
+        const calculateDistance = (lat1, lon1, lat2, lon2) => {
+          const R = 6371 // Earth's radius in km
+          const dLat = (lat2 - lat1) * Math.PI / 180
+          const dLon = (lon2 - lon1) * Math.PI / 180
+          const a = 
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2)
+          const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+          return R * c
+        }
+        
+        // Calculate distance for each stop and sort
+        const stopsWithDistance = allStops
+          .filter(stop => stop.Lat && stop.Lon) // Only stops with coordinates
+          .map(stop => ({
+            ...stop,
+            distance: calculateDistance(userLat, userLng, stop.Lat, stop.Lon)
+          }))
+          .sort((a, b) => a.distance - b.distance)
+        
+        // Get the 7th closest stop's distance to determine zoom level (shows ~5-10 stops)
+        const referenceDistance = (stopsWithDistance[6] && stopsWithDistance[6].distance) || 1 // km
+        // Calculate zoom level: closer stops need higher zoom, further need lower
+        // Rough formula: zoom 15 = ~0.5km, zoom 14 = ~1km, zoom 13 = ~2km
+        let zoomLevel = 14
+        if (referenceDistance < 0.5) {
+          zoomLevel = 15
+        } else if (referenceDistance < 1) {
+          zoomLevel = 14
+        } else if (referenceDistance < 2) {
+          zoomLevel = 13
+        } else {
+          zoomLevel = 12
+        }
+        
+        console.log(stopsWithDistance)
+        
+        // Store map data and show modal (all stops, not just 10)
+        mapData = {
+          userLocation: { lat: userLat, lng: userLng },
+          allStops: stopsWithDistance,
+          zoomLevel: zoomLevel
+        }
+        showMapModal = true
+      }, (error) => {
+        console.error("Error getting location:", error)
+      })
+    } else {
+      console.error("Geolocation is not supported by this browser")
+    }
+  }
+
+  const closeMapModal = () => {
+    showMapModal = false
+    if (mapInstance) {
+      mapInstance.remove()
+      mapInstance = null
+    }
+    mapData = null
+    
+    // Clean up event listener
+    const mapElement = document.getElementById('map')
+    if (mapElement && popupButtonHandler) {
+      mapElement.removeEventListener('click', popupButtonHandler)
+      popupButtonHandler = null
+    }
+  }
+
+  const initMap = () => {
+    if (!mapData) return
+    
+    // Wait for Leaflet to be available
+    if (!window.L) {
+      // Check if script is already being loaded
+      if (document.querySelector('script[src*="leaflet"]')) {
+        // Wait for it to load
+        const checkLeaflet = setInterval(() => {
+          if (window.L) {
+            clearInterval(checkLeaflet)
+            createMap()
+          }
+        }, 100)
+        return
+      }
+      // Leaflet should already be loaded from HTML, but wait a bit
+      setTimeout(() => {
+        if (window.L) {
+          createMap()
+        }
+      }, 100)
+      return
+    }
+    
+    createMap()
+  }
+
+  const createMap = () => {
+    if (!mapData || !window.L) return
+    
+    const mapElement = document.getElementById('map')
+    if (!mapElement) return
+    
+    // Clear existing map if it exists
+    if (mapInstance) {
+      mapInstance.remove()
+      mapInstance = null
+    }
+    
+    // Create map centered on user location with calculated zoom level
+    const zoomLevel = mapData.zoomLevel || 14
+    mapInstance = L.map(mapElement).setView(
+      [mapData.userLocation.lat, mapData.userLocation.lng],
+      zoomLevel
+    )
+    
+    // Add dark mode tile layer (CartoDB Dark Matter)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '© OpenStreetMap contributors © CARTO',
+      maxZoom: 19
+    }).addTo(mapInstance)
+    
+    // Create pin icon for user location (blue)
+    const userIcon = L.icon({
+      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    })
+    
+    // Add user location marker
+    const userMarker = L.marker([mapData.userLocation.lat, mapData.userLocation.lng], {
+      icon: userIcon,
+      title: 'Your Location'
+    }).addTo(mapInstance).bindPopup('Your Location')
+    
+    const stopMarkers = []
+    
+    // Map all stops, not just the closest 10
+    mapData.allStops.forEach((stop) => {
+      // Check if stop is already added to determine color
+      const isAdded = isStopAdded(stop)
+      const stopColor = isAdded ? '#78a6ee' : '#FF0000'
+      
+      const stopIcon = L.divIcon({
+        className: 'custom-marker',
+        html: `<div style="background-color: ${stopColor}; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
+        iconSize: [20, 20],
+        iconAnchor: [10, 10]
+      })
+      
+      const popupContent = createStopPopupContent(stop)
+      const marker = L.marker([stop.Lat, stop.Lon], {
+        icon: stopIcon,
+        title: stop.Name
+      }).addTo(mapInstance).bindPopup(popupContent)
+      
+      stopMarkers.push(marker)
+    })
+    
+    // Attach event listeners for popup buttons
+    attachPopupButtonListeners()
+    
+    // Center map on user location
+    mapInstance.setView([mapData.userLocation.lat, mapData.userLocation.lng], 14)
   }
   
 </script>
@@ -82,19 +392,29 @@
     {/each}
   </div>
 {/if}
-<StationPicker bind:relevantStations={relevantStations} bind:hideBusses={hideBusses}/>
+<StationPicker bind:relevantStations={relevantStations} bind:hideBusses={hideBusses} bind:isSearching={stationSearching}/>
 
 {#if !hideBusses}
-  <BusStopPicker bind:relevantBusStops={relevantBusStops}/>
+  <BusStopPicker bind:relevantBusStops={relevantBusStops} bind:isSearching={busSearching}/>
+  <button class="find-closest-stop" on:click={findClosestStop}>📍 Bus stop map</button>
 {/if}
 
-<Board bind:relevantStationNames={relevantStationNames} bind:hideBusses={hideBusses} />
+<Board bind:relevantStationNames={relevantStationNames} bind:hideBusses={hideBusses} showMapModal={showMapModal} isSearching={stationSearching || busSearching} />
 {#if !hideBusses}
   <BusBoard bind:relevantBusStops={relevantBusStops}/>
 {/if}
 
 <br>
 <button id="hide-busses" on:click={() => toggleBusMode()}>{hideBusses ? "🚌 Show Busses too!" : "🚌 Hide Busses"}</button>
+
+{#if showMapModal}
+  <div class="map-modal-overlay" on:click={closeMapModal}>
+    <div class="map-modal" on:click|stopPropagation>
+      <button class="map-close" on:click={closeMapModal}>×</button>
+      <div id="map" class="map-container"></div>
+    </div>
+  </div>
+{/if}
 
 <style>
   .station {
@@ -127,5 +447,70 @@
     background-color: #394d76;
     color: white;
     border-width: 0px;
+  }
+
+  .find-closest-stop {
+    font-size: 14px;
+    padding: 4px 8px;
+    margin: 5px 0;
+    background-color: #394d76;
+    color: white;
+    border-width: 0px;
+  }
+
+  .map-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .map-modal {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #21292f;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+  }
+
+  .map-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #394d76;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .map-close:hover {
+    background-color: #5977b5;
+  }
+
+  .map-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  :global(.custom-marker) {
+    background: transparent;
+    border: none;
   }
 </style>

@@ -5,6 +5,10 @@
   let searchResults = []
   let placeholder = "Add train stations"
   export let relevantStations, hideBusses
+  
+  // Export search state so parent can check if user is searching
+  export let isSearching = false
+  $: isSearching = query.length > 0
   $: relevantStationNames = relevantStations.map(station => station.Name)
   // $: placeholder = relevantStations.length == 0 ? "Add stations" : ""
   onMount(async () => {

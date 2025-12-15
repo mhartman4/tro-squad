@@ -9,6 +9,10 @@
   export let relevantBusStops
   let relevantBusStopSet = new Set()
   
+  // Export search state so parent can check if user is searching
+  export let isSearching = false
+  $: isSearching = query.length > 0
+  
   // Debounce query updates
   let debounceTimer
   $: {

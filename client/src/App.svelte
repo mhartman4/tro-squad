@@ -14,6 +14,13 @@
   let mapInstance = null
   let stationSearching = false
   let busSearching = false
+  
+  // Marker management state
+  let stopMarkersLayer = null
+  let visibleMarkers = new Map() // Map<stopKey, marker> where stopKey is "Lat,Lon"
+  let mapUpdateDebounceTimer = null
+  let mapMoveHandler = null
+  let mapZoomHandler = null
 
   
   if (localStorage.getItem("relevantStations")) {
@@ -104,6 +111,80 @@
     return relevantBusStops.some(s => s.Name + " (" + s.StopID + ")" === stopKey)
   }
 
+  // Get stop key for marker tracking
+  const getStopKey = (stop) => {
+    return `${stop.Lat},${stop.Lon}`
+  }
+
+  // Filter stops within map bounds (with buffer)
+  const getStopsInBounds = (bounds, buffer = 0.2) => {
+    if (!mapData || !mapData.allStops) return []
+    
+    // Expand bounds by buffer percentage
+    const latDiff = bounds.getNorth() - bounds.getSouth()
+    const lngDiff = bounds.getEast() - bounds.getWest()
+    
+    const expandedBounds = L.latLngBounds([
+      [bounds.getSouth() - latDiff * buffer, bounds.getWest() - lngDiff * buffer],
+      [bounds.getNorth() + latDiff * buffer, bounds.getEast() + lngDiff * buffer]
+    ])
+    
+    return mapData.allStops.filter(stop => {
+      if (!stop.Lat || !stop.Lon) return false
+      return expandedBounds.contains([stop.Lat, stop.Lon])
+    })
+  }
+
+  // Create a marker for a stop
+  const createStopMarker = (stop) => {
+    const isAdded = isStopAdded(stop)
+    const stopColor = isAdded ? '#78a6ee' : '#FF0000'
+    
+    const stopIcon = L.divIcon({
+      className: 'custom-marker',
+      html: `<div style="background-color: ${stopColor}; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
+      iconSize: [20, 20],
+      iconAnchor: [10, 10]
+    })
+    
+    const popupContent = createStopPopupContent(stop)
+    const marker = L.marker([stop.Lat, stop.Lon], {
+      icon: stopIcon,
+      title: stop.Name
+    }).bindPopup(popupContent)
+    
+    return marker
+  }
+
+  // Update visible markers based on current map bounds
+  const updateVisibleMarkers = () => {
+    if (!mapInstance || !mapData || !stopMarkersLayer) return
+    
+    const bounds = mapInstance.getBounds()
+    const stopsInBounds = getStopsInBounds(bounds, 0.2)
+    const stopsInBoundsKeys = new Set(stopsInBounds.map(stop => getStopKey(stop)))
+    
+    // Remove markers that are no longer in bounds
+    const keysToRemove = []
+    visibleMarkers.forEach((marker, stopKey) => {
+      if (!stopsInBoundsKeys.has(stopKey)) {
+        stopMarkersLayer.removeLayer(marker)
+        keysToRemove.push(stopKey)
+      }
+    })
+    keysToRemove.forEach(key => visibleMarkers.delete(key))
+    
+    // Add markers for stops that are now in bounds
+    stopsInBounds.forEach(stop => {
+      const stopKey = getStopKey(stop)
+      if (!visibleMarkers.has(stopKey)) {
+        const marker = createStopMarker(stop)
+        stopMarkersLayer.addLayer(marker)
+        visibleMarkers.set(stopKey, marker)
+      }
+    })
+  }
+
   const createStopPopupContent = (stop) => {
     const isAdded = isStopAdded(stop)
     const buttonText = isAdded ? "Added" : "Add"
@@ -115,12 +196,12 @@
     const stopData = encodeURIComponent(JSON.stringify(stop))
     
     return `
-      <div style="text-align: center; padding: 5px;">
+      <div style="text-align: center; padding: 5px; font-family: 'VT323', monospace;">
         <div style="margin-bottom: 8px; font-weight: bold;">${stop.Name}</div>
         <button 
           class="add-stop-btn" 
           data-stop='${stopData}'
-          style="${buttonStyle} border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer; font-family: inherit;"
+          style="${buttonStyle} border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer; font-family: 'VT323', monospace;"
         >
           ${buttonText}
         </button>
@@ -129,30 +210,29 @@
   }
 
   const updateMapPopups = () => {
-    if (!mapInstance || !mapData) return
+    if (!mapInstance || !mapData || !stopMarkersLayer) return
     
-    // Update all stop markers' popups and icons
-    mapInstance.eachLayer((layer) => {
-      if (layer instanceof L.Marker) {
-        const stop = mapData.allStops.find(s => 
-          Math.abs(s.Lat - layer.getLatLng().lat) < 0.0001 && 
-          Math.abs(s.Lon - layer.getLatLng().lng) < 0.0001
-        )
-        if (stop) {
-          // Update popup content
-          layer.setPopupContent(createStopPopupContent(stop))
-          
-          // Update marker color based on whether stop is added
-          const isAdded = isStopAdded(stop)
-          const stopColor = isAdded ? '#78a6ee' : '#FF0000'
-          const stopIcon = L.divIcon({
-            className: 'custom-marker',
-            html: `<div style="background-color: ${stopColor}; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
-            iconSize: [20, 20],
-            iconAnchor: [10, 10]
-          })
-          layer.setIcon(stopIcon)
-        }
+    // Update all visible stop markers' popups and icons
+    visibleMarkers.forEach((marker, stopKey) => {
+      const [lat, lon] = stopKey.split(',').map(Number)
+      const stop = mapData.allStops.find(s => 
+        Math.abs(s.Lat - lat) < 0.0001 && 
+        Math.abs(s.Lon - lon) < 0.0001
+      )
+      if (stop) {
+        // Update popup content
+        marker.setPopupContent(createStopPopupContent(stop))
+        
+        // Update marker color based on whether stop is added
+        const isAdded = isStopAdded(stop)
+        const stopColor = isAdded ? '#78a6ee' : '#FF0000'
+        const stopIcon = L.divIcon({
+          className: 'custom-marker',
+          html: `<div style="background-color: ${stopColor}; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
+          iconSize: [20, 20],
+          iconAnchor: [10, 10]
+        })
+        marker.setIcon(stopIcon)
       }
     })
     
@@ -262,10 +342,34 @@
 
   const closeMapModal = () => {
     showMapModal = false
+    
+    // Clean up map event handlers
     if (mapInstance) {
+      if (mapMoveHandler) {
+        mapInstance.off('moveend', mapMoveHandler)
+        mapMoveHandler = null
+      }
+      if (mapZoomHandler) {
+        mapInstance.off('zoomend', mapZoomHandler)
+        mapZoomHandler = null
+      }
       mapInstance.remove()
       mapInstance = null
     }
+    
+    // Clean up debounce timer
+    if (mapUpdateDebounceTimer) {
+      clearTimeout(mapUpdateDebounceTimer)
+      mapUpdateDebounceTimer = null
+    }
+    
+    // Clean up marker layer and tracking
+    if (stopMarkersLayer) {
+      stopMarkersLayer.clearLayers()
+      stopMarkersLayer = null
+    }
+    visibleMarkers.clear()
+    
     mapData = null
     
     // Clean up event listener
@@ -316,6 +420,10 @@
       mapInstance = null
     }
     
+    // Reset marker tracking
+    visibleMarkers.clear()
+    stopMarkersLayer = null
+    
     // Create map centered on user location with calculated zoom level
     const zoomLevel = mapData.zoomLevel || 14
     mapInstance = L.map(mapElement).setView(
@@ -345,32 +453,30 @@
       title: 'Your Location'
     }).addTo(mapInstance).bindPopup('Your Location')
     
-    const stopMarkers = []
+    // Create LayerGroup for stop markers
+    stopMarkersLayer = L.layerGroup().addTo(mapInstance)
     
-    // Map all stops, not just the closest 10
-    mapData.allStops.forEach((stop) => {
-      // Check if stop is already added to determine color
-      const isAdded = isStopAdded(stop)
-      const stopColor = isAdded ? '#78a6ee' : '#FF0000'
-      
-      const stopIcon = L.divIcon({
-        className: 'custom-marker',
-        html: `<div style="background-color: ${stopColor}; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
-        iconSize: [20, 20],
-        iconAnchor: [10, 10]
-      })
-      
-      const popupContent = createStopPopupContent(stop)
-      const marker = L.marker([stop.Lat, stop.Lon], {
-        icon: stopIcon,
-        title: stop.Name
-      }).addTo(mapInstance).bindPopup(popupContent)
-      
-      stopMarkers.push(marker)
-    })
+    // Add initial markers for stops in viewport
+    updateVisibleMarkers()
     
     // Attach event listeners for popup buttons
     attachPopupButtonListeners()
+    
+    // Add debounced event handlers for map movement
+    const debouncedUpdateMarkers = () => {
+      if (mapUpdateDebounceTimer) {
+        clearTimeout(mapUpdateDebounceTimer)
+      }
+      mapUpdateDebounceTimer = setTimeout(() => {
+        updateVisibleMarkers()
+      }, 250)
+    }
+    
+    mapMoveHandler = debouncedUpdateMarkers
+    mapZoomHandler = debouncedUpdateMarkers
+    
+    mapInstance.on('moveend', mapMoveHandler)
+    mapInstance.on('zoomend', mapZoomHandler)
     
     // Center map on user location
     mapInstance.setView([mapData.userLocation.lat, mapData.userLocation.lng], 14)

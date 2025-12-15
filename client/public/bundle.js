@@ -2407,7 +2407,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (382:2) {#each relevantStations as station}
+    // (488:2) {#each relevantStations as station}
     function create_each_block_1$4(ctx) {
     	var span, t0_value = ctx.station.Name.length > 20 ? ctx.station.Name.substring(0,20) : ctx.station.Name + "", t0, t1, dispose;
 
@@ -2421,7 +2421,7 @@ var app = (function () {
     			t0 = text(t0_value);
     			t1 = space();
     			attr_dev(span, "class", "station svelte-1v3w4a");
-    			add_location(span, file$4, 382, 4, 12445);
+    			add_location(span, file$4, 488, 4, 15711);
     			dispose = listen_dev(span, "click", click_handler_1);
     		},
 
@@ -2446,11 +2446,11 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$4.name, type: "each", source: "(382:2) {#each relevantStations as station}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$4.name, type: "each", source: "(488:2) {#each relevantStations as station}", ctx });
     	return block;
     }
 
-    // (388:0) {#if !hideBusses}
+    // (494:0) {#if !hideBusses}
     function create_if_block_3(ctx) {
     	var div;
 
@@ -2470,7 +2470,7 @@ var app = (function () {
     				each_blocks[i].c();
     			}
     			attr_dev(div, "class", "relevant-stations svelte-1v3w4a");
-    			add_location(div, file$4, 388, 2, 12623);
+    			add_location(div, file$4, 494, 2, 15889);
     		},
 
     		m: function mount(target, anchor) {
@@ -2513,11 +2513,11 @@ var app = (function () {
     			destroy_each(each_blocks, detaching);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_3.name, type: "if", source: "(388:0) {#if !hideBusses}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_3.name, type: "if", source: "(494:0) {#if !hideBusses}", ctx });
     	return block;
     }
 
-    // (390:4) {#each relevantBusStops as stop}
+    // (496:4) {#each relevantBusStops as stop}
     function create_each_block$4(ctx) {
     	var span, t_value = ctx.stop.Name + " (" + ctx.stop.StopID + ")" + "", t, dispose;
 
@@ -2530,7 +2530,7 @@ var app = (function () {
     			span = element("span");
     			t = text(t_value);
     			attr_dev(span, "class", "bus-stop svelte-1v3w4a");
-    			add_location(span, file$4, 390, 6, 12698);
+    			add_location(span, file$4, 496, 6, 15964);
     			dispose = listen_dev(span, "click", click_handler_2);
     		},
 
@@ -2554,11 +2554,11 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$4.name, type: "each", source: "(390:4) {#each relevantBusStops as stop}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$4.name, type: "each", source: "(496:4) {#each relevantBusStops as stop}", ctx });
     	return block;
     }
 
-    // (397:0) {#if !hideBusses}
+    // (503:0) {#if !hideBusses}
     function create_if_block_2$1(ctx) {
     	var updating_relevantBusStops, updating_isSearching, t, button, current, dispose;
 
@@ -2596,7 +2596,7 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "📍 Bus stop map";
     			attr_dev(button, "class", "find-closest-stop svelte-1v3w4a");
-    			add_location(button, file$4, 398, 2, 13067);
+    			add_location(button, file$4, 504, 2, 16333);
     			dispose = listen_dev(button, "click", ctx.findClosestStop);
     		},
 
@@ -2641,11 +2641,11 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2$1.name, type: "if", source: "(397:0) {#if !hideBusses}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2$1.name, type: "if", source: "(503:0) {#if !hideBusses}", ctx });
     	return block;
     }
 
-    // (403:0) {#if !hideBusses}
+    // (509:0) {#if !hideBusses}
     function create_if_block_1$2(ctx) {
     	var updating_relevantBusStops, current;
 
@@ -2697,11 +2697,11 @@ var app = (function () {
     			destroy_component(busboard, detaching);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1$2.name, type: "if", source: "(403:0) {#if !hideBusses}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1$2.name, type: "if", source: "(509:0) {#if !hideBusses}", ctx });
     	return block;
     }
 
-    // (410:0) {#if showMapModal}
+    // (516:0) {#if showMapModal}
     function create_if_block$4(ctx) {
     	var div2, div1, button, t_1, div0, dispose;
 
@@ -2714,14 +2714,14 @@ var app = (function () {
     			t_1 = space();
     			div0 = element("div");
     			attr_dev(button, "class", "map-close svelte-1v3w4a");
-    			add_location(button, file$4, 412, 6, 13669);
+    			add_location(button, file$4, 518, 6, 16935);
     			attr_dev(div0, "id", "map");
     			attr_dev(div0, "class", "map-container svelte-1v3w4a");
-    			add_location(div0, file$4, 413, 6, 13737);
+    			add_location(div0, file$4, 519, 6, 17003);
     			attr_dev(div1, "class", "map-modal svelte-1v3w4a");
-    			add_location(div1, file$4, 411, 4, 13614);
+    			add_location(div1, file$4, 517, 4, 16880);
     			attr_dev(div2, "class", "map-modal-overlay svelte-1v3w4a");
-    			add_location(div2, file$4, 410, 2, 13553);
+    			add_location(div2, file$4, 516, 2, 16819);
 
     			dispose = [
     				listen_dev(button, "click", ctx.closeMapModal),
@@ -2746,7 +2746,7 @@ var app = (function () {
     			run_all(dispose);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$4.name, type: "if", source: "(410:0) {#if showMapModal}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$4.name, type: "if", source: "(516:0) {#if showMapModal}", ctx });
     	return block;
     }
 
@@ -2860,11 +2860,11 @@ var app = (function () {
     			if (if_block3) if_block3.c();
     			if_block3_anchor = empty();
     			attr_dev(div, "class", "relevant-stations svelte-1v3w4a");
-    			add_location(div, file$4, 380, 0, 12371);
-    			add_location(br, file$4, 406, 0, 13403);
+    			add_location(div, file$4, 486, 0, 15637);
+    			add_location(br, file$4, 512, 0, 16669);
     			attr_dev(button, "id", "hide-busses");
     			attr_dev(button, "class", "svelte-1v3w4a");
-    			add_location(button, file$4, 407, 0, 13408);
+    			add_location(button, file$4, 513, 0, 16674);
     			dispose = listen_dev(button, "click", ctx.click_handler_3);
     		},
 
@@ -3102,6 +3102,13 @@ var app = (function () {
       let mapInstance = null;
       let stationSearching = false;
       let busSearching = false;
+      
+      // Marker management state
+      let stopMarkersLayer = null;
+      let visibleMarkers = new Map(); // Map<stopKey, marker> where stopKey is "Lat,Lon"
+      let mapUpdateDebounceTimer = null;
+      let mapMoveHandler = null;
+      let mapZoomHandler = null;
 
       
       if (localStorage.getItem("relevantStations")) {
@@ -3175,6 +3182,80 @@ var app = (function () {
         return relevantBusStops.some(s => s.Name + " (" + s.StopID + ")" === stopKey)
       };
 
+      // Get stop key for marker tracking
+      const getStopKey = (stop) => {
+        return `${stop.Lat},${stop.Lon}`
+      };
+
+      // Filter stops within map bounds (with buffer)
+      const getStopsInBounds = (bounds, buffer = 0.2) => {
+        if (!mapData || !mapData.allStops) return []
+        
+        // Expand bounds by buffer percentage
+        const latDiff = bounds.getNorth() - bounds.getSouth();
+        const lngDiff = bounds.getEast() - bounds.getWest();
+        
+        const expandedBounds = L.latLngBounds([
+          [bounds.getSouth() - latDiff * buffer, bounds.getWest() - lngDiff * buffer],
+          [bounds.getNorth() + latDiff * buffer, bounds.getEast() + lngDiff * buffer]
+        ]);
+        
+        return mapData.allStops.filter(stop => {
+          if (!stop.Lat || !stop.Lon) return false
+          return expandedBounds.contains([stop.Lat, stop.Lon])
+        })
+      };
+
+      // Create a marker for a stop
+      const createStopMarker = (stop) => {
+        const isAdded = isStopAdded(stop);
+        const stopColor = isAdded ? '#78a6ee' : '#FF0000';
+        
+        const stopIcon = L.divIcon({
+          className: 'custom-marker',
+          html: `<div style="background-color: ${stopColor}; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
+          iconSize: [20, 20],
+          iconAnchor: [10, 10]
+        });
+        
+        const popupContent = createStopPopupContent(stop);
+        const marker = L.marker([stop.Lat, stop.Lon], {
+          icon: stopIcon,
+          title: stop.Name
+        }).bindPopup(popupContent);
+        
+        return marker
+      };
+
+      // Update visible markers based on current map bounds
+      const updateVisibleMarkers = () => {
+        if (!mapInstance || !mapData || !stopMarkersLayer) return
+        
+        const bounds = mapInstance.getBounds();
+        const stopsInBounds = getStopsInBounds(bounds, 0.2);
+        const stopsInBoundsKeys = new Set(stopsInBounds.map(stop => getStopKey(stop)));
+        
+        // Remove markers that are no longer in bounds
+        const keysToRemove = [];
+        visibleMarkers.forEach((marker, stopKey) => {
+          if (!stopsInBoundsKeys.has(stopKey)) {
+            stopMarkersLayer.removeLayer(marker);
+            keysToRemove.push(stopKey);
+          }
+        });
+        keysToRemove.forEach(key => visibleMarkers.delete(key));
+        
+        // Add markers for stops that are now in bounds
+        stopsInBounds.forEach(stop => {
+          const stopKey = getStopKey(stop);
+          if (!visibleMarkers.has(stopKey)) {
+            const marker = createStopMarker(stop);
+            stopMarkersLayer.addLayer(marker);
+            visibleMarkers.set(stopKey, marker);
+          }
+        });
+      };
+
       const createStopPopupContent = (stop) => {
         const isAdded = isStopAdded(stop);
         const buttonText = isAdded ? "Added" : "Add";
@@ -3186,12 +3267,12 @@ var app = (function () {
         const stopData = encodeURIComponent(JSON.stringify(stop));
         
         return `
-      <div style="text-align: center; padding: 5px;">
+      <div style="text-align: center; padding: 5px; font-family: 'VT323', monospace;">
         <div style="margin-bottom: 8px; font-weight: bold;">${stop.Name}</div>
         <button 
           class="add-stop-btn" 
           data-stop='${stopData}'
-          style="${buttonStyle} border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer; font-family: inherit;"
+          style="${buttonStyle} border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer; font-family: 'VT323', monospace;"
         >
           ${buttonText}
         </button>
@@ -3200,30 +3281,29 @@ var app = (function () {
       };
 
       const updateMapPopups = () => {
-        if (!mapInstance || !mapData) return
+        if (!mapInstance || !mapData || !stopMarkersLayer) return
         
-        // Update all stop markers' popups and icons
-        mapInstance.eachLayer((layer) => {
-          if (layer instanceof L.Marker) {
-            const stop = mapData.allStops.find(s => 
-              Math.abs(s.Lat - layer.getLatLng().lat) < 0.0001 && 
-              Math.abs(s.Lon - layer.getLatLng().lng) < 0.0001
-            );
-            if (stop) {
-              // Update popup content
-              layer.setPopupContent(createStopPopupContent(stop));
-              
-              // Update marker color based on whether stop is added
-              const isAdded = isStopAdded(stop);
-              const stopColor = isAdded ? '#78a6ee' : '#FF0000';
-              const stopIcon = L.divIcon({
-                className: 'custom-marker',
-                html: `<div style="background-color: ${stopColor}; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
-                iconSize: [20, 20],
-                iconAnchor: [10, 10]
-              });
-              layer.setIcon(stopIcon);
-            }
+        // Update all visible stop markers' popups and icons
+        visibleMarkers.forEach((marker, stopKey) => {
+          const [lat, lon] = stopKey.split(',').map(Number);
+          const stop = mapData.allStops.find(s => 
+            Math.abs(s.Lat - lat) < 0.0001 && 
+            Math.abs(s.Lon - lon) < 0.0001
+          );
+          if (stop) {
+            // Update popup content
+            marker.setPopupContent(createStopPopupContent(stop));
+            
+            // Update marker color based on whether stop is added
+            const isAdded = isStopAdded(stop);
+            const stopColor = isAdded ? '#78a6ee' : '#FF0000';
+            const stopIcon = L.divIcon({
+              className: 'custom-marker',
+              html: `<div style="background-color: ${stopColor}; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
+              iconSize: [20, 20],
+              iconAnchor: [10, 10]
+            });
+            marker.setIcon(stopIcon);
           }
         });
         
@@ -3333,10 +3413,34 @@ var app = (function () {
 
       const closeMapModal = () => {
         $$invalidate('showMapModal', showMapModal = false);
+        
+        // Clean up map event handlers
         if (mapInstance) {
+          if (mapMoveHandler) {
+            mapInstance.off('moveend', mapMoveHandler);
+            mapMoveHandler = null;
+          }
+          if (mapZoomHandler) {
+            mapInstance.off('zoomend', mapZoomHandler);
+            mapZoomHandler = null;
+          }
           mapInstance.remove();
           $$invalidate('mapInstance', mapInstance = null);
         }
+        
+        // Clean up debounce timer
+        if (mapUpdateDebounceTimer) {
+          clearTimeout(mapUpdateDebounceTimer);
+          mapUpdateDebounceTimer = null;
+        }
+        
+        // Clean up marker layer and tracking
+        if (stopMarkersLayer) {
+          stopMarkersLayer.clearLayers();
+          stopMarkersLayer = null;
+        }
+        visibleMarkers.clear();
+        
         $$invalidate('mapData', mapData = null);
         
         // Clean up event listener
@@ -3387,6 +3491,10 @@ var app = (function () {
           $$invalidate('mapInstance', mapInstance = null);
         }
         
+        // Reset marker tracking
+        visibleMarkers.clear();
+        stopMarkersLayer = null;
+        
         // Create map centered on user location with calculated zoom level
         const zoomLevel = mapData.zoomLevel || 14;
         $$invalidate('mapInstance', mapInstance = L.map(mapElement).setView(
@@ -3416,28 +3524,30 @@ var app = (function () {
           title: 'Your Location'
         }).addTo(mapInstance).bindPopup('Your Location');
         
-        // Map all stops, not just the closest 10
-        mapData.allStops.forEach((stop) => {
-          // Check if stop is already added to determine color
-          const isAdded = isStopAdded(stop);
-          const stopColor = isAdded ? '#78a6ee' : '#FF0000';
-          
-          const stopIcon = L.divIcon({
-            className: 'custom-marker',
-            html: `<div style="background-color: ${stopColor}; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
-            iconSize: [20, 20],
-            iconAnchor: [10, 10]
-          });
-          
-          const popupContent = createStopPopupContent(stop);
-          const marker = L.marker([stop.Lat, stop.Lon], {
-            icon: stopIcon,
-            title: stop.Name
-          }).addTo(mapInstance).bindPopup(popupContent);
-        });
+        // Create LayerGroup for stop markers
+        stopMarkersLayer = L.layerGroup().addTo(mapInstance);
+        
+        // Add initial markers for stops in viewport
+        updateVisibleMarkers();
         
         // Attach event listeners for popup buttons
         attachPopupButtonListeners();
+        
+        // Add debounced event handlers for map movement
+        const debouncedUpdateMarkers = () => {
+          if (mapUpdateDebounceTimer) {
+            clearTimeout(mapUpdateDebounceTimer);
+          }
+          mapUpdateDebounceTimer = setTimeout(() => {
+            updateVisibleMarkers();
+          }, 250);
+        };
+        
+        mapMoveHandler = debouncedUpdateMarkers;
+        mapZoomHandler = debouncedUpdateMarkers;
+        
+        mapInstance.on('moveend', mapMoveHandler);
+        mapInstance.on('zoomend', mapZoomHandler);
         
         // Center map on user location
         mapInstance.setView([mapData.userLocation.lat, mapData.userLocation.lng], 14);
@@ -3507,6 +3617,11 @@ var app = (function () {
     		if ('mapInstance' in $$props) $$invalidate('mapInstance', mapInstance = $$props.mapInstance);
     		if ('stationSearching' in $$props) $$invalidate('stationSearching', stationSearching = $$props.stationSearching);
     		if ('busSearching' in $$props) $$invalidate('busSearching', busSearching = $$props.busSearching);
+    		if ('stopMarkersLayer' in $$props) stopMarkersLayer = $$props.stopMarkersLayer;
+    		if ('visibleMarkers' in $$props) visibleMarkers = $$props.visibleMarkers;
+    		if ('mapUpdateDebounceTimer' in $$props) mapUpdateDebounceTimer = $$props.mapUpdateDebounceTimer;
+    		if ('mapMoveHandler' in $$props) mapMoveHandler = $$props.mapMoveHandler;
+    		if ('mapZoomHandler' in $$props) mapZoomHandler = $$props.mapZoomHandler;
     		if ('popupButtonHandler' in $$props) popupButtonHandler = $$props.popupButtonHandler;
     	};
 
